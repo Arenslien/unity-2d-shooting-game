@@ -8,8 +8,13 @@ public class PlayerFire : MonoBehaviour
     // - 생성 위치 (총구)
 
     public GameObject BulletPrefab;
+    public GameObject SupportBulletPrefab;
+    
     public Transform FirePointL;
     public Transform FirePointR;
+    public Transform SupportFirePointL;
+    public Transform SupportFirePointR;
+    
     private float _fireCoolTime = 0.5f;
     private float _currentCoolTime = 0.0f;
     private bool _isFire = false;
@@ -37,6 +42,12 @@ public class PlayerFire : MonoBehaviour
             // 총알 양쪽 발사
             bulletL.transform.position = FirePointL.position; // 생성한 총알의 위치를 나(플레이어)의 위치로
             bulletR.transform.position = FirePointR.position;
+            
+            // 보조 총알 양쪽 발사
+            GameObject supportBulletL = Instantiate(SupportBulletPrefab);
+            GameObject supportBulletR = Instantiate(SupportBulletPrefab);
+            supportBulletL.transform.position = SupportFirePointL.position;
+            supportBulletR.transform.position = SupportFirePointR.position;
             
             // 쿨타임 시작
             _isFire = true;
