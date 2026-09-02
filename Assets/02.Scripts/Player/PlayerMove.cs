@@ -14,13 +14,13 @@ public class PlayerMove : MonoBehaviour
 
     private void Start()
     {
-        transform.position = new Vector3(0, -2.58f, 0);
+        // 초기 위치 설정
+        float initialY = -2.58f;
+        transform.position = new Vector3(0, initialY, 0);
     }
-    
     
     // Update 메서드는 매 프레임마다 실행
     // 초당 프레임 실행 횟수는: 별다른 설정이 없을 경우 가능한 많이 실행
-    
     private void Update()
     {
         // [기본적인 이동 메커니즘]
@@ -40,6 +40,20 @@ public class PlayerMove : MonoBehaviour
         // transform.Translate(direction * Speed * Time.deltaTime);
         // deltaTime: 이전 프레임으로부터 지금 프레임까지 시간이 얼마나 지났는지 ms(1/1000)로 반환
 
+        // 3. 키보드 E, Q에 스피드 업, 다운 기능 구현
+        if (Input.GetKey(KeyCode.E))
+        {
+            Speed += 0.01f;
+            Debug.Log($"현재 속도: {Speed}");
+        }
+        if (Input.GetKey(KeyCode.Q))
+        {
+            Speed -= 0.01f;
+            Debug.Log($"현재 속도: {Speed}");
+        }
+        
+        
+        
         Vector2 normalizedSpeed = direction.normalized * Speed; // 벡터의 길이 1로 변환. 즉, 방향만 유지
         // 새로운 위치 = 현재 위치 + v(방향 * 속력) x t(시간)
         transform.position += (Vector3)normalizedSpeed * Time.deltaTime;
