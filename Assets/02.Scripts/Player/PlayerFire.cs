@@ -15,14 +15,20 @@ public class PlayerFire : MonoBehaviour
     public Transform SupportFirePointL;
     public Transform SupportFirePointR;
     
-    private float _fireCoolTime = 0.5f;
-    private float _currentCoolTime = 0.0f;
-    private bool _isFire = false;
+    private float _fireBulletCoolTime = 0.5f;
+    private float _currentBulletCoolTime = 0.0f;
+    private bool _isBulletFire = false;
+    
+    private float _fireSupportBulletCoolTime = 0.3f;
+    private float _currentSupportBulletCoolTime = 0.0f;
+    private bool _isSupportBulletFire = false;
+    
     private bool _isAutoMode = false;
     
     private void Update()
     {
         FireBullet();
+        
         
         CheckCoolTime();
         
@@ -32,7 +38,7 @@ public class PlayerFire : MonoBehaviour
     private void FireBullet()
     {
         // 1. 키보드 입력 받기: GetKeyDown은 눌렀을 때 한 번
-        if (!_isFire && (_isAutoMode || Input.GetKeyDown(KeyCode.Space)))
+        if (!_isBulletFire && (_isAutoMode || Input.GetKeyDown(KeyCode.Space)))
         {
             // 2. 총알 프리팹을 생성한다.
             // Instantiate는 프리팹을 복사해서 (MonoBehaviour를 상속받는)게임 오브젝트를 생성하고 씬에 넣어주는 기능
@@ -43,28 +49,47 @@ public class PlayerFire : MonoBehaviour
             bulletL.transform.position = FirePointL.position; // 생성한 총알의 위치를 나(플레이어)의 위치로
             bulletR.transform.position = FirePointR.position;
             
-            // 보조 총알 양쪽 발사
+            // 쿨타임 시작
+            _isBulletFire = true;
+        }
+        
+        // 1. 키보드 입력 받기: GetKeyDown은 눌렀을 때 한 번
+        if (!_isSupportBulletFire && (_isAutoMode || Input.GetKeyDown(KeyCode.Space)))
+        {
+            // 2. 보조 총알 양쪽 발사
             GameObject supportBulletL = Instantiate(SupportBulletPrefab);
             GameObject supportBulletR = Instantiate(SupportBulletPrefab);
             supportBulletL.transform.position = SupportFirePointL.position;
             supportBulletR.transform.position = SupportFirePointR.position;
             
             // 쿨타임 시작
-            _isFire = true;
+            _isSupportBulletFire = true;
         }
+        
     }
 
     private void CheckCoolTime()
     {
-        if (_isFire)
+        if (_isBulletFire)
         {
-            _currentCoolTime += Time.deltaTime;
+            _currentBulletCoolTime += Time.deltaTime;
         }
 
-        if (_currentCoolTime >= _fireCoolTime)
+        if (_currentBulletCoolTime >= _fireBulletCoolTime)
         {
-            _isFire = false;
-            _currentCoolTime = 0.0f;
+            _isBulletFire = false;
+            _currentBulletCoolTime = 0.0f;
+        }
+        
+        if (_isSupportBulletFire)
+        {
+            _currentSupportBulletCoolTime += Time.deltaTime;
+        }
+
+        if (_currentSupportBulletCoolTime >= _fireSupportBulletCoolTime)
+        {
+            _isSupportBulletFire = false;
+            _currentSupportBulletCoolTime = 0.0f;
         }
     }
 
