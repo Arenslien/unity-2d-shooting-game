@@ -27,7 +27,7 @@ public class PlayerMove : MonoBehaviour
         // 1. 키보드 입력을 받는다.
         float h = Input.GetAxisRaw("Horizontal"); // 키보드 좌우 입력 상태에 따라 -1f ~ 0 ~ 1f
         float v = Input.GetAxisRaw("Vertical");  // 키보드 상하 입력 상태에 따라 -1f ~ 0 ~ 1f
-        Debug.Log($"h: {h}, v: {v}");
+        // Debug.Log($"h: {h}, v: {v}");
         
         // 2. 키보드 입력에 따라 방향을 구한다.
         // 게임에는 벡터라는 타입이 있다. (벡터: 크기와 방향)
@@ -53,20 +53,23 @@ public class PlayerMove : MonoBehaviour
         }
         
         Vector2 normalizedSpeed = direction.normalized * Speed; // 벡터의 길이 1로 변환. 즉, 방향만 유지
+        
         // 새로운 위치 = 현재 위치 + v(방향 * 속력) x t(시간)
-        transform.position += (Vector3)normalizedSpeed * Time.deltaTime;
+        Vector2 newPosition = transform.position + (Vector3)normalizedSpeed * Time.deltaTime;
         
         // 1. 영역 안에서 움직이도록 고정
-        transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, MinY, MaxY), 0);
+        newPosition.y = Mathf.Clamp(newPosition.y, MinY, MaxY);
         
         // 2. 좌우 좌표 한계 초과 시 텔레포트
         if (transform.position.x < -LimitX)
         {
-            transform.position = new Vector3(WarpX, transform.position.y, 0);
+            newPosition.x = WarpX;
         }
         if (transform.position.x > LimitX)
         {
-            transform.position = new Vector3(-WarpX, transform.position.y, 0);
+            newPosition.x = -WarpX;
         }
+        
+        transform.position = newPosition;
     }
 }
