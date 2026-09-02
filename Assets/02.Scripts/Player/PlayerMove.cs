@@ -53,5 +53,15 @@ public class PlayerMove : MonoBehaviour
         {
             transform.position = new Vector3(transform.position.x, MaxY, 0);
         }
+        
+        // 2. 좌우 좌표 한계 초과 시 텔레포트
+        if (transform.position.x < -LimitX)
+        {
+            transform.position = new Vector3(WarpX, transform.position.y, 0);
+        }
+        if (transform.position.x > LimitX)
+        {
+            transform.position = new Vector3(-WarpX, transform.position.y, 0);
+        }
     }
 }
