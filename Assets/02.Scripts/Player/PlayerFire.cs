@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerFire : MonoBehaviour
@@ -22,74 +23,52 @@ public class PlayerFire : MonoBehaviour
     private float _fireSupportBulletCoolTime = 0.3f;
     private float _currentSupportBulletCoolTime = 0.0f;
     private bool _isSupportBulletFire = false;
-    
     private bool _isAutoMode = false;
     
     private void Update()
     {
-        FireBullet();
+        FireBullet(BulletPrefab, new Transform[2] {FirePointL, FirePointR}, ref _isBulletFire);
+        FireBullet(SupportBulletPrefab, new Transform[2] {SupportFirePointL, SupportFirePointR}, ref _isSupportBulletFire);
         
-        
-        CheckCoolTime();
+        CheckCoolTime(ref _isBulletFire, ref _currentBulletCoolTime, _fireBulletCoolTime);
+        CheckCoolTime(ref _isSupportBulletFire, ref _currentSupportBulletCoolTime, _fireSupportBulletCoolTime);
         
         ChangeAutoMode();
     }
 
-    private void FireBullet()
+    private void FireBullet(GameObject bulletPrefab, Transform[] firePoints, ref bool isFire)
     {
-        // 1. 키보드 입력 받기: GetKeyDown은 눌렀을 때 한 번
-        if (!_isBulletFire && (_isAutoMode || Input.GetKeyDown(KeyCode.Space)))
+        // 1. 총알 발사 조건: 미발사 상태인 동시에 Auto모드이거나 Space 키 입력
+        if (!isFire && (_isAutoMode || Input.GetKeyDown(KeyCode.Space)))
         {
-            // 2. 총알 프리팹을 생성한다.
-            // Instantiate는 프리팹을 복사해서 (MonoBehaviour를 상속받는)게임 오브젝트를 생성하고 씬에 넣어주는 기능
-            GameObject bulletL = Instantiate(BulletPrefab);
-            GameObject bulletR = Instantiate(BulletPrefab);
-            
-            // 총알 양쪽 발사
-            bulletL.transform.position = FirePointL.position; // 생성한 총알의 위치를 나(플레이어)의 위치로
-            bulletR.transform.position = FirePointR.position;
+            // 2. 총알 프리팹 배열 생성
+            int bulletCount = firePoints.Length;
+            GameObject[] bullets = new GameObject[bulletCount];
+             
+            // 모든 총알 위치를 포인트 위치로 설정
+            for (int i = 0; i < bulletCount; i++)
+            {
+                bullets[i] = Instantiate(bulletPrefab);
+                bullets[i].transform.position = firePoints[i].position;
+                Debug.Log(firePoints[i].position);
+            }
             
             // 쿨타임 시작
-            _isBulletFire = true;
+            isFire = true;
         }
-        
-        // 1. 키보드 입력 받기: GetKeyDown은 눌렀을 때 한 번
-        if (!_isSupportBulletFire && (_isAutoMode || Input.GetKeyDown(KeyCode.Space)))
-        {
-            // 2. 보조 총알 양쪽 발사
-            GameObject supportBulletL = Instantiate(SupportBulletPrefab);
-            GameObject supportBulletR = Instantiate(SupportBulletPrefab);
-            supportBulletL.transform.position = SupportFirePointL.position;
-            supportBulletR.transform.position = SupportFirePointR.position;
-            
-            // 쿨타임 시작
-            _isSupportBulletFire = true;
-        }
-        
     }
 
-    private void CheckCoolTime()
+    private void CheckCoolTime(ref bool isFire, ref float currentCoolTime, float bulletCoolTime)
     {
-        if (_isBulletFire)
+        if (isFire)
         {
-            _currentBulletCoolTime += Time.deltaTime;
+            currentCoolTime += Time.deltaTime;
         }
 
-        if (_currentBulletCoolTime >= _fireBulletCoolTime)
+        if (currentCoolTime >= bulletCoolTime)
         {
-            _isBulletFire = false;
-            _currentBulletCoolTime = 0.0f;
-        }
-        
-        if (_isSupportBulletFire)
-        {
-            _currentSupportBulletCoolTime += Time.deltaTime;
-        }
-
-        if (_currentSupportBulletCoolTime >= _fireSupportBulletCoolTime)
-        {
-            _isSupportBulletFire = false;
-            _currentSupportBulletCoolTime = 0.0f;
+            isFire = false;
+            currentCoolTime = 0.0f;
         }
     }
 
