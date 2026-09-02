@@ -1,5 +1,4 @@
 using UnityEngine;
-using System;
 
 public class PlayerMove : MonoBehaviour
 {
@@ -11,13 +10,6 @@ public class PlayerMove : MonoBehaviour
     public float MaxY = -0.58f;
     public float LimitX = 2.9f;
     public float WarpX = 1.85f;
-
-    private void Start()
-    {
-        // 초기 위치 설정
-        float initialY = -2.58f;
-        transform.position = new Vector3(0, initialY, 0);
-    }
     
     // Update 메서드는 매 프레임마다 실행
     // 초당 프레임 실행 횟수는: 별다른 설정이 없을 경우 가능한 많이 실행
