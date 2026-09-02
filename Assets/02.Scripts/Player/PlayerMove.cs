@@ -52,21 +52,12 @@ public class PlayerMove : MonoBehaviour
             Debug.Log($"현재 속도: {Speed}");
         }
         
-        
-        
         Vector2 normalizedSpeed = direction.normalized * Speed; // 벡터의 길이 1로 변환. 즉, 방향만 유지
         // 새로운 위치 = 현재 위치 + v(방향 * 속력) x t(시간)
         transform.position += (Vector3)normalizedSpeed * Time.deltaTime;
         
         // 1. 영역 안에서 움직이도록 고정
-        if (transform.position.y < MinY)
-        {
-            transform.position = new Vector3(transform.position.x, MinY, 0);
-        }
-        if (transform.position.y > MaxY)
-        {
-            transform.position = new Vector3(transform.position.x, MaxY, 0);
-        }
+        transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, MinY, MaxY), 0);
         
         // 2. 좌우 좌표 한계 초과 시 텔레포트
         if (transform.position.x < -LimitX)
