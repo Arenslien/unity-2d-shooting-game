@@ -43,12 +43,12 @@ public class PlayerMove : MonoBehaviour
         // 3. 키보드 E, Q에 스피드 업, 다운 기능 구현
         if (Input.GetKey(KeyCode.E))
         {
-            Speed += 0.01f;
+            Speed += 1.0f * Time.deltaTime;
             Debug.Log($"현재 속도: {Speed}");
         }
         if (Input.GetKey(KeyCode.Q))
         {
-            Speed -= 0.01f;
+            Speed -= 1.0f * Time.deltaTime;
             Debug.Log($"현재 속도: {Speed}");
         }
         
