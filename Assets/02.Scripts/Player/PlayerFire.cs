@@ -13,17 +13,21 @@ public class PlayerFire : MonoBehaviour
     private float _fireCoolTime = 0.5f;
     private float _currentCoolTime = 0.0f;
     private bool _isFire = false;
+    private bool _isAutoMode = false;
     
     private void Update()
     {
         FireBullet();
+        
         CheckCoolTime();
+        
+        ChangeAutoMode();
     }
 
     private void FireBullet()
     {
         // 1. 키보드 입력 받기: GetKeyDown은 눌렀을 때 한 번
-        if (Input.GetKeyDown(KeyCode.Space) && !_isFire)
+        if (!_isFire && (_isAutoMode || Input.GetKeyDown(KeyCode.Space)))
         {
             // 2. 총알 프리팹을 생성한다.
             // Instantiate는 프리팹을 복사해서 (MonoBehaviour를 상속받는)게임 오브젝트를 생성하고 씬에 넣어주는 기능
@@ -50,6 +54,15 @@ public class PlayerFire : MonoBehaviour
         {
             _isFire = false;
             _currentCoolTime = 0.0f;
+        }
+    }
+
+    private void ChangeAutoMode()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            _isAutoMode = !_isAutoMode;
+            Debug.Log($"자동 공격 모드 {(_isAutoMode ? "ON": "OFF")}");
         }
     }
 }
