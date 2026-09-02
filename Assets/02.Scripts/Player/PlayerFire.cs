@@ -10,16 +10,20 @@ public class PlayerFire : MonoBehaviour
     public GameObject BulletPrefab;
     public Transform FirePointL;
     public Transform FirePointR;
+    private float _fireCoolTime = 0.5f;
+    private float _currentCoolTime = 0.0f;
+    private bool _isFire = false;
     
     private void Update()
     {
         FireBullet();
+        CheckCoolTime();
     }
 
     private void FireBullet()
     {
         // 1. 키보드 입력 받기: GetKeyDown은 눌렀을 때 한 번
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && !_isFire)
         {
             // 2. 총알 프리팹을 생성한다.
             // Instantiate는 프리팹을 복사해서 (MonoBehaviour를 상속받는)게임 오브젝트를 생성하고 씬에 넣어주는 기능
@@ -29,6 +33,23 @@ public class PlayerFire : MonoBehaviour
             // 총알 양쪽 발사
             bulletL.transform.position = FirePointL.position; // 생성한 총알의 위치를 나(플레이어)의 위치로
             bulletR.transform.position = FirePointR.position;
+            
+            // 쿨타임 시작
+            _isFire = true;
+        }
+    }
+
+    private void CheckCoolTime()
+    {
+        if (_isFire)
+        {
+            _currentCoolTime += Time.deltaTime;
+        }
+
+        if (_currentCoolTime >= _fireCoolTime)
+        {
+            _isFire = false;
+            _currentCoolTime = 0.0f;
         }
     }
 }
