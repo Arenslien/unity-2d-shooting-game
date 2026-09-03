@@ -22,8 +22,4 @@ public abstract class Enemy : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-    }
 }
