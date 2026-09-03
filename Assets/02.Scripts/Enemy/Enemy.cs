@@ -1,10 +1,21 @@
 using UnityEngine;
 
-public class EnemyMove : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
     public float Speed;
 
     private void Update()
+    {
+        Move();
+
+        // 3. 오브젝트 삭제
+        if (transform.position.y <= -5.5f)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    private void Move()
     {
         // 1. 방향 설정
         Vector2 direction = new Vector2(0, -1); // Vector2.down;
