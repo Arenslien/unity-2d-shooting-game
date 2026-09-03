@@ -12,8 +12,8 @@ public class BulletMove : MonoBehaviour
     private void Move()
     {
         // 2. 방향 설정
-        Vector2 direction = Vector2.up; // new Vector2(0, 1)과 동일
-            
+        Vector2 direction = Vector2.up; // new Vector2(0, 1)과 동일!
+
         // 3. 발사
         transform.Translate(direction * Speed * Time.deltaTime);
 

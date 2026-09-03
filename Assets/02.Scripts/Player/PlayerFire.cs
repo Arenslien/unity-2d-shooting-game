@@ -10,29 +10,30 @@ public class PlayerFire : MonoBehaviour
 
     public GameObject BulletPrefab;
     public GameObject SupportBulletPrefab;
-    
+
     public Transform FirePointL;
     public Transform FirePointR;
     public Transform SupportFirePointL;
     public Transform SupportFirePointR;
-    
+
     private float _fireBulletCoolTime = 0.5f;
     private float _currentBulletCoolTime = 0.0f;
     private bool _isBulletFire = false;
-    
+
     private float _fireSupportBulletCoolTime = 0.3f;
     private float _currentSupportBulletCoolTime = 0.0f;
     private bool _isSupportBulletFire = false;
     private bool _isAutoMode = false;
-    
+
     private void Update()
     {
-        FireBullet(BulletPrefab, new Transform[2] {FirePointL, FirePointR}, ref _isBulletFire);
-        FireBullet(SupportBulletPrefab, new Transform[2] {SupportFirePointL, SupportFirePointR}, ref _isSupportBulletFire);
-        
+        FireBullet(BulletPrefab, new Transform[2] { FirePointL, FirePointR }, ref _isBulletFire);
+        FireBullet(SupportBulletPrefab, new Transform[2] { SupportFirePointL, SupportFirePointR },
+            ref _isSupportBulletFire);
+
         CheckCoolTime(ref _isBulletFire, ref _currentBulletCoolTime, _fireBulletCoolTime);
         CheckCoolTime(ref _isSupportBulletFire, ref _currentSupportBulletCoolTime, _fireSupportBulletCoolTime);
-        
+
         ChangeAutoMode();
     }
 
@@ -44,7 +45,7 @@ public class PlayerFire : MonoBehaviour
             // 2. 총알 프리팹 배열 생성
             int bulletCount = firePoints.Length;
             GameObject[] bullets = new GameObject[bulletCount];
-             
+
             // 모든 총알 위치를 포인트 위치로 설정
             for (int i = 0; i < bulletCount; i++)
             {
@@ -52,7 +53,7 @@ public class PlayerFire : MonoBehaviour
                 bullets[i].transform.position = firePoints[i].position;
                 Debug.Log(firePoints[i].position);
             }
-            
+
             // 쿨타임 시작
             isFire = true;
         }
@@ -77,7 +78,7 @@ public class PlayerFire : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             _isAutoMode = !_isAutoMode;
-            Debug.Log($"자동 공격 모드 {(_isAutoMode ? "ON": "OFF")}");
+            Debug.Log($"자동 공격 모드 {(_isAutoMode ? "ON" : "OFF")}");
         }
     }
 }
