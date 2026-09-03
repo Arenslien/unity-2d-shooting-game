@@ -47,9 +47,4 @@ public class Bullet : MonoBehaviour
             }
         }
     }
-
-    private void OnCollisionStay2D(Collider2D collision)
-    {
-        Debug.Log("충돌 중.");
-    }
 }
