@@ -2,9 +2,10 @@ using UnityEngine;
 
 public abstract class Enemy : MonoBehaviour
 {
-    public float Health = 100;
-    public float MoveSpeed = 2;
+    [SerializeField] private float _health = 100;
+    [SerializeField] protected float _moveSpeed = 2;
     private float _minPositionY = -5.5f;
+    protected Vector2 _direction;
 
     private void Update()
     {
@@ -18,6 +19,15 @@ public abstract class Enemy : MonoBehaviour
     private void DestroyIfOutOfBounds()
     {
         if (transform.position.y <= _minPositionY)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    public void TakeDamage(float damage)
+    {
+        _health -= damage;
+        if (_health <= 0)
         {
             Destroy(gameObject);
         }

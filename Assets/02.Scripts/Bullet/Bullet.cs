@@ -28,23 +28,34 @@ public class Bullet : MonoBehaviour
     }
 
     // 충돌 관련 이벤트 (Enter --> Stay --> Exit)
-    private void OnCollisionEnter2D(Collision2D collision)
+    // private void OnCollisionEnter2D(Collision2D collision)
+    // {
+    //     // 1. 충돌한 경우 바로 총알 게임 오브젝트 제거
+    //     Destroy(gameObject);
+    //
+    //     // 2. 충돌한 객체가 Enemy인 경우 : Enemy와 상호작용 진행
+    //     if (collision.gameObject.CompareTag("Enemy")) // 게임오브젝트의 태그 비교
+    //     {
+    //         // 2.1 충돌한 객체 참조
+    //         Enemy enemy = collision.gameObject.GetComponent<Enemy>(); // GetComponent<타입>() --> 해당 겜옵젝의 컴포넌트 참조
+    //
+    //         enemy.TakeDamage(BulletDamage);
+    //     }
+    // }
+
+    // 트리거 관련 이벤트
+    private void OnTriggerEnter2D(Collider2D other)
     {
         // 1. 충돌한 경우 바로 총알 게임 오브젝트 제거
         Destroy(gameObject);
 
         // 2. 충돌한 객체가 Enemy인 경우 : Enemy와 상호작용 진행
-        if (collision.gameObject.CompareTag("Enemy")) // 게임오브젝트의 태그 비교
+        if (other.gameObject.CompareTag("Enemy")) // 게임오브젝트의 태그 비교
         {
             // 2.1 충돌한 객체 참조
-            Enemy enemy = collision.gameObject.GetComponent<Enemy>(); // GetComponent<타입>() --> 해당 겜옵젝의 컴포넌트 참조
-            enemy.Health -= BulletDamage; // 총알 데미지 반영
+            Enemy enemy = other.gameObject.GetComponent<Enemy>(); // GetComponent<타입>() --> 해당 겜옵젝의 컴포넌트 참조
 
-            // 2.2 Enemy 체력 체크
-            if (enemy.Health <= 0)
-            {
-                Destroy(collision.gameObject);
-            }
+            enemy.TakeDamage(BulletDamage);
         }
     }
 }

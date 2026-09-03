@@ -16,6 +16,6 @@ public class SniperEnemy : Enemy
     protected override void Move()
     {
         // 이동
-        transform.Translate(_direction * (MoveSpeed * Time.deltaTime));
+        transform.Translate(_direction * (_moveSpeed * Time.deltaTime));
     }
 }

@@ -8,6 +8,6 @@ public class StraightEnemy : Enemy
         Vector2 direction = new Vector2(0, -1); // Vector2.down;
 
         // 2. 오브젝트 이동
-        transform.Translate(direction * (MoveSpeed * Time.deltaTime));
+        transform.Translate(direction * (_moveSpeed * Time.deltaTime));
     }
 }
