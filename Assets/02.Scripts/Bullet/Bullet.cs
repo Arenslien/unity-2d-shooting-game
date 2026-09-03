@@ -1,8 +1,9 @@
 using UnityEngine;
 
-public class BulletMove : MonoBehaviour
+public class Bullet : MonoBehaviour
 {
     public float MoveSpeed;
+    public float Damage;
 
     private void Update()
     {
@@ -39,10 +40,11 @@ public class BulletMove : MonoBehaviour
             // GetComponent<타입>() --> 게임 오브젝트가 가지고 있는 컴포넌트를 창조
 
             Enemy enemy = collision.gameObject.GetComponent<Enemy>();
-            enemy.Health -= 40;
+            enemy.Health -= Damage;
             if (enemy.Health <= 0)
             {
                 Destroy(collision.gameObject);
+                Destroy(gameObject);
             }
         }
     }

@@ -106,7 +106,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95a35279bd652f047bc8fa6e080fe4ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyMove
-  MoveSpeed: 2
+  Health: 100
+  MoveSpeed: 1
 --- !u!61 &7465180539399335876
 BoxCollider2D:
   m_ObjectHideFlags: 0
