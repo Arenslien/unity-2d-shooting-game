@@ -67,13 +67,5 @@ public class PlayerMove : MonoBehaviour
             Speed -= 1.0f * Time.deltaTime;
             Debug.Log($"현재 속도: {Speed}");
         }
-
-        // 일부로 틀려보자고
-        if (true)
-        {
-            int NUMBER = 10;
-            Debug.Log(NUMBER);
-            // test 고고
-        }
     }
 }
