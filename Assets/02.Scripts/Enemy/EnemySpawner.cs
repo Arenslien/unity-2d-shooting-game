@@ -45,7 +45,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void SelectRandomEnemy()
     {
-        float randomNumber = UnityEngine.Random.Range(1f, 100f);
+        float randomNumber = UnityEngine.Random.Range(0f, 100f);
 
         if (randomNumber <= 50f)
         {

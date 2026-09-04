@@ -39,7 +39,7 @@ public abstract class Enemy : MonoBehaviour
         {
             PlayerStatus playerStatus = other.gameObject.GetComponent<PlayerStatus>();
 
-            playerStatus.takeDamage(_damage);
+            playerStatus.TakeDamage(_damage);
 
             Destroy(gameObject);
         }
