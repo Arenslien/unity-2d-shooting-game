@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerStatus : MonoBehaviour
+public class Player : MonoBehaviour
 {
     private int _health = 100;
 
@@ -13,5 +13,10 @@ public class PlayerStatus : MonoBehaviour
             Debug.Log("플레이어 체력: 0");
             Destroy(gameObject);
         }
+    }
+
+    public void RestoreHealth(int health)
+    {
+        _health += health;
     }
 }

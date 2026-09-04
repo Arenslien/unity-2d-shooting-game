@@ -3,7 +3,7 @@ using UnityEngine;
 public abstract class Enemy : MonoBehaviour
 {
     [SerializeField] private int _health = 100;
-    [SerializeField] protected float _moveSpeed = 2;
+    [SerializeField] protected float _moveSpeed = 1;
     [SerializeField] private int _damage;
 
     private void Update()
@@ -18,6 +18,7 @@ public abstract class Enemy : MonoBehaviour
         _health -= damage;
         if (_health <= 0)
         {
+            DropItem();
             Destroy(gameObject);
         }
     }
@@ -25,10 +26,19 @@ public abstract class Enemy : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.CompareTag("Player")) return;
-        PlayerStatus playerStatus = other.gameObject.GetComponent<PlayerStatus>();
+        Player player = other.gameObject.GetComponent<Player>();
 
-        playerStatus.TakeDamage(_damage);
+        player.TakeDamage(_damage);
 
         Destroy(gameObject);
+    }
+
+    private void DropItem()
+    {
+        int randomPercent = UnityEngine.Random.Range(0, 100);
+
+        if (randomPercent >= 30) return;
+
+        int randomItemIndex = UnityEngine.Random.Range(0, 3);
     }
 }

@@ -16,11 +16,11 @@ public class PlayerFire : MonoBehaviour
     public Transform SupportFirePointL;
     public Transform SupportFirePointR;
 
-    private float _fireBulletCoolTime = 0.5f;
+    private float _fireMainBulletCoolTime = 1f;
     private float _currentBulletCoolTime = 0.0f;
     private bool _isBulletFire = false;
 
-    private float _fireSupportBulletCoolTime = 0.3f;
+    private float _fireSupportBulletCoolTime = 1.5f;
     private float _currentSupportBulletCoolTime = 0.0f;
     private bool _isSupportBulletFire = false;
     private bool _isAutoMode = false;
@@ -31,7 +31,7 @@ public class PlayerFire : MonoBehaviour
         FireBullet(SupportBulletPrefab, new Transform[2] { SupportFirePointL, SupportFirePointR },
             ref _isSupportBulletFire);
 
-        CheckCoolTime(ref _isBulletFire, ref _currentBulletCoolTime, _fireBulletCoolTime);
+        CheckCoolTime(ref _isBulletFire, ref _currentBulletCoolTime, _fireMainBulletCoolTime);
         CheckCoolTime(ref _isSupportBulletFire, ref _currentSupportBulletCoolTime, _fireSupportBulletCoolTime);
 
         ChangeAutoMode();
@@ -78,6 +78,19 @@ public class PlayerFire : MonoBehaviour
         {
             _isAutoMode = !_isAutoMode;
             Debug.Log($"자동 공격 모드 {(_isAutoMode ? "ON" : "OFF")}");
+        }
+    }
+
+    public void IncreaseAttackSpeed(float speed)
+    {
+        if (_fireMainBulletCoolTime > 0.5f)
+        {
+            _fireMainBulletCoolTime -= speed;
+        }
+
+        if (_fireSupportBulletCoolTime > 0.8f)
+        {
+            _fireMainBulletCoolTime -= speed;
         }
     }
 }
