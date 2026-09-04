@@ -4,8 +4,8 @@ public abstract class Enemy : MonoBehaviour
 {
     [SerializeField] private int _health = 100;
     [SerializeField] protected float _moveSpeed = 2;
+    [SerializeField] private int _damage;
     private float _minPositionY = -5.5f;
-    private int _damage = 10;
 
     private void Update()
     {
@@ -35,13 +35,11 @@ public abstract class Enemy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            PlayerStatus playerStatus = other.gameObject.GetComponent<PlayerStatus>();
+        if (!other.CompareTag("Player")) return;
+        PlayerStatus playerStatus = other.gameObject.GetComponent<PlayerStatus>();
 
-            playerStatus.TakeDamage(_damage);
+        playerStatus.TakeDamage(_damage);
 
-            Destroy(gameObject);
-        }
+        Destroy(gameObject);
     }
 }

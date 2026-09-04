@@ -59,7 +59,5 @@ public class EnemySpawner : MonoBehaviour
         {
             _spawnEnemyIndex = (int)Enemies.HomingEnemy;
         }
-
-        Debug.Log($"{gameObject.name}의 현재 스폰인덱스 값: {_spawnEnemyIndex}");
     }
 }
