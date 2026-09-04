@@ -2,14 +2,17 @@ using UnityEngine;
 
 public class HomingEnemy : Enemy
 {
-    private void Update()
+    // 캐싱 : 자주 쓸법한 데이터 메모리에 올리기
+    private GameObject _playerObject;
+
+    private void Start()
     {
-        GameObject playerObject = GameObject.FindWithTag("Player");
+        _playerObject = GameObject.FindWithTag("Player");
     }
 
     protected override void Move()
     {
-        Vector2 direction = (playerObject.transform.position - transform.position).normalized;
+        Vector2 direction = (_playerObject.transform.position - transform.position).normalized;
 
         transform.Translate(direction * (_moveSpeed * Time.deltaTime));
     }
