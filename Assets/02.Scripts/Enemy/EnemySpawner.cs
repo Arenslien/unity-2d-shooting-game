@@ -1,5 +1,12 @@
 using UnityEngine;
 
+enum Enemies
+{
+    StraightEnemy,
+    SniperEnemy,
+    HomingEnemy
+}
+
 // 역할: 일정 시간마다 적을 생성해주고 싶다.
 public class EnemySpawner : MonoBehaviour
 {
@@ -8,7 +15,11 @@ public class EnemySpawner : MonoBehaviour
     private float _timer;
 
     // - 생성할 프리팹
-    [Header("스폰할 적 프리팹")][SerializeField] private Enemy _enemyPrefab; // Enemy로 받을 경우 해당 클래스를 스크립트로 가진 경우만 가능
+    [SerializeField] private Enemy[] _enemyPrefabs = new Enemy[3];
+
+    private int _spawnEnemyIndex = (int)Enemies.StraightEnemy;
+    // 확률에 따라 Enemy 다양하게 스폰
+    // - 50%: Downward, 30%: Aimed, 20%: Homing
 
     private void Update()
     {
@@ -20,6 +31,7 @@ public class EnemySpawner : MonoBehaviour
 
             _spawnInterval = UnityEngine.Random.Range(1f, 3f);
             // _spawnInterval = UnityEngine.Random.Range(1, 3);
+            SelectRandomEnemy();
 
             Spawn();
         }
@@ -27,7 +39,27 @@ public class EnemySpawner : MonoBehaviour
 
     private void Spawn()
     {
-        Enemy enemy = Instantiate(_enemyPrefab);
+        Enemy enemy = Instantiate(_enemyPrefabs[_spawnEnemyIndex]);
         enemy.transform.position = transform.position;
+    }
+
+    private void SelectRandomEnemy()
+    {
+        float randomNumber = UnityEngine.Random.Range(1f, 100f);
+
+        if (randomNumber <= 50f)
+        {
+            _spawnEnemyIndex = (int)Enemies.StraightEnemy;
+        }
+        else if (randomNumber <= 80f)
+        {
+            _spawnEnemyIndex = (int)Enemies.SniperEnemy;
+        }
+        else
+        {
+            _spawnEnemyIndex = (int)Enemies.HomingEnemy;
+        }
+
+        Debug.Log($"{gameObject.name}의 현재 스폰인덱스 값: {_spawnEnemyIndex}");
     }
 }
