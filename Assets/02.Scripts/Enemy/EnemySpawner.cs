@@ -11,7 +11,7 @@ enum Enemies
 public class EnemySpawner : MonoBehaviour
 {
     // 필요 속성
-    [Header("스폰 간격")][SerializeField] private float _spawnInterval = 3f;
+    [SerializeField] private float _spawnInterval = 3f;
     private float _timer;
 
     // - 생성할 프리팹
@@ -45,13 +45,16 @@ public class EnemySpawner : MonoBehaviour
 
     private void SelectRandomEnemy()
     {
-        float randomNumber = UnityEngine.Random.Range(0f, 100f);
+        int randomNumber = UnityEngine.Random.Range(0, 100);
 
-        if (randomNumber <= 50f)
+        // Todo: Scriptable Object를 사용해서 리팩토링
+        // - 이유 1: 배열을 사용하나 각 아이템이 어떤 프리팹인지 알 수 없음
+        // - 이유 2: 각 Enemy 스폰 확률을 매직 넘버로 하드 코딩해서 유지보수가 어려움
+        if (randomNumber < 50)
         {
             _spawnEnemyIndex = (int)Enemies.StraightEnemy;
         }
-        else if (randomNumber <= 80f)
+        else if (randomNumber < 80)
         {
             _spawnEnemyIndex = (int)Enemies.SniperEnemy;
         }
