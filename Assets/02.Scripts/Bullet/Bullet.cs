@@ -4,27 +4,16 @@ public class Bullet : MonoBehaviour
 {
     public float MoveSpeed;
     public int BulletDamage;
-    private float _maxPositionX = 5.2f;
 
     private void Update()
     {
         Move();
-
-        DestoryIfOutOfBounds();
     }
 
     private void Move()
     {
         Vector2 direction = Vector2.up; // new Vector2(0, 1)과 동일!                // 1. 방향 설정
         transform.Translate(direction * (MoveSpeed * Time.deltaTime)); // 2. 발사 (이동)
-    }
-
-    private void DestoryIfOutOfBounds()
-    {
-        if (transform.position.y > _maxPositionX)
-        {
-            Destroy(gameObject);
-        }
     }
 
     // 충돌 관련 이벤트 (Enter --> Stay --> Exit)

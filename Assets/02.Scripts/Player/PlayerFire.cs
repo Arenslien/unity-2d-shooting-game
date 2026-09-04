@@ -51,7 +51,6 @@ public class PlayerFire : MonoBehaviour
             {
                 bullets[i] = Instantiate(bulletPrefab);
                 bullets[i].transform.position = firePoints[i].position;
-                Debug.Log(firePoints[i].position);
             }
 
             // 쿨타임 시작
