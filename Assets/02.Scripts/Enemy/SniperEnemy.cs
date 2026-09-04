@@ -8,6 +8,12 @@ public class SniperEnemy : Enemy
     private void Start()
     {
         GameObject playerObject = GameObject.FindWithTag("Player");
+
+        if (playerObject == null)
+        {
+            return;
+        }
+
         _direction = (playerObject.transform.position - transform.position).normalized;
         Debug.Log(_direction);
     }

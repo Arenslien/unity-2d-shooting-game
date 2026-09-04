@@ -3,7 +3,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public float MoveSpeed;
-    public float BulletDamage;
+    public int BulletDamage;
     private float _maxPositionX = 5.2f;
 
     private void Update()
