@@ -7,11 +7,11 @@ public class HomingEnemy : Enemy
 
     private void Start()
     {
-        _playerObject = GameObject.FindWithTag("Player");
     }
 
     protected override void Move()
     {
+        _playerObject = GameObject.FindWithTag("Player");
         Vector2 direction = (_playerObject.transform.position - transform.position).normalized;
 
         transform.Translate(direction * (_moveSpeed * Time.deltaTime));
