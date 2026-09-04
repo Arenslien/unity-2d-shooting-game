@@ -355,6 +355,7 @@ GameObject:
   - component: {fileID: 463837749}
   - component: {fileID: 463837748}
   - component: {fileID: 463837747}
+  - component: {fileID: 463837750}
   m_Layer: 9
   m_Name: DestroyZoneRight
   m_TagString: Untagged
@@ -509,6 +510,18 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &463837750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 463837745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b85ba9f7aaaacea4f8cfac1f3122a401, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DestroyZone
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -742,6 +755,7 @@ GameObject:
   - component: {fileID: 1066201744}
   - component: {fileID: 1066201743}
   - component: {fileID: 1066201742}
+  - component: {fileID: 1066201745}
   m_Layer: 9
   m_Name: DestroyZoneBottom
   m_TagString: Untagged
@@ -896,6 +910,18 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1066201745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1066201740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b85ba9f7aaaacea4f8cfac1f3122a401, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DestroyZone
 --- !u!1 &1231870276
 GameObject:
   m_ObjectHideFlags: 0
@@ -970,6 +996,7 @@ GameObject:
   - component: {fileID: 1274491149}
   - component: {fileID: 1274491148}
   - component: {fileID: 1274491147}
+  - component: {fileID: 1274491150}
   m_Layer: 9
   m_Name: DestroyZoneLeft
   m_TagString: Untagged
@@ -1124,6 +1151,18 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1274491150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1274491145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b85ba9f7aaaacea4f8cfac1f3122a401, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DestroyZone
 --- !u!1 &1622322828
 GameObject:
   m_ObjectHideFlags: 0
@@ -1289,8 +1328,8 @@ GameObject:
   - component: {fileID: 1924714306}
   - component: {fileID: 1924714310}
   - component: {fileID: 1924714309}
-  - component: {fileID: 1924714308}
   - component: {fileID: 1924714307}
+  - component: {fileID: 1924714308}
   m_Layer: 9
   m_Name: DestroyZoneTop
   m_TagString: Untagged
