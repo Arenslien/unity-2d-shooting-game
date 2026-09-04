@@ -132,6 +132,37 @@ player.TakeDamage(damage);
 4. 이벤트, 인터페이스, 컴포지션 중 어떤 방법이 적절한가?
 5. 변경 후 클래스 간 관계가 어떻게 달라지는가?
 
+## 캐싱 기법
+
+반복적으로 접근하거나 계산 비용이 높은 데이터를 매번 새로 구하지 않고 저장해두고 재사용하는지 확인한다. 무분별한 캐싱은 오히려 메모리 낭비로 이어질 수 있으므로, 호출 빈도와 연산 비용을 고려해 적절히 적용되었는지 검토한다.
+
+### 1. 무거운 Unity API 호출 캐싱
+* `GetComponent<T>()`, `Camera.main`, `GameObject.Find()`, `FindObjectOfType()` 등 비용이 큰 탐색 API를 `Update()`나 반복 실행되는 메서드 내부에서 호출하고 있지 않은지 확인한다.
+* **개선:** `Awake()`나 `Start()`에서 최초 1회 호출하여 멤버 변수에 할당(캐싱)한 뒤 사용하도록 제안한다.
+
+### 2. 문자열 해시(Hash) 변환 캐싱
+* Animator 파라미터나 Shader 프로퍼티를 변경할 때 매 프레임 문자열을 직접 전달하고 있지 않은지 확인한다.
+    * 예: `animator.SetBool("isWalking", true);`
+* **개선:** `Animator.StringToHash()` 또는 `Shader.PropertyToID()`를 사용해 `static readonly` 변수나 멤버 변수에 정수형(int) ID로 미리 캐싱해두고 사용하도록 제안한다.
+
+### 3. 코루틴(Coroutine) Yield 객체 캐싱
+* 코루틴 내부의 `while` 루프 등에서 `new WaitForSeconds()`, `new WaitForEndOfFrame()` 등을 반복 생성하여 가비지(GC Allocation)를 유발하고 있지 않은지 확인한다.
+* **개선:** 대기 시간이 고정되어 있다면 루프 바깥이나 클래스 멤버로 미리 생성해둔 객체를 재사용하도록 제안한다.
+
+```csharp
+// 제안하는 구조
+private readonly WaitForSeconds waitOneSecond = new WaitForSeconds(1f);
+
+private IEnumerator Routine()
+{
+    while (true)
+    {
+        // 로직 처리
+        yield return waitOneSecond;
+    }
+}
+
+
 ## SOLID 원칙
 
 SOLID 원칙을 기준으로 설계를 검토하되, 모든 코드에 인터페이스와 디자인 패턴을 강제하지 않는다.
