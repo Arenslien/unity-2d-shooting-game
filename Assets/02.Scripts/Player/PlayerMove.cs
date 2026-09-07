@@ -5,11 +5,19 @@ public class PlayerMove : MonoBehaviour
     // 목적: 키보드 입력에 따라서 플레이어 이동 처리를 하고 싶다.
 
     // 필요 필드:
+    private Animator _animator;
+
     [SerializeField] private float _speed;
     private float _minY = -4.6f;
     private float _maxY = -0.58f;
     private float _limitX = 2.9f;
     private float _warpX = 1.85f;
+
+    // 객체가 생성될 때 한 번 실행된다.
+    private void Awake()
+    {
+        _animator = GetComponent<Animator>();
+    }
 
     // Update 메서드는 매 프레임마다 실행
     // 초당 프레임 실행 횟수는: 별다른 설정이 없을 경우 가능한 많이 실행
@@ -28,10 +36,13 @@ public class PlayerMove : MonoBehaviour
         // Debug.Log($"h: {h}, v: {v}");
 
         // 2. 키보드 입력에 따라 방향을 구한다.
-        Vector2 direction = new Vector2(h, v); // 게임에는 벡터라는 타입이 있다. (벡터: 크기와 방향) 
+        Vector2 direction = new Vector2(h, v).normalized; // 게임에는 벡터라는 타입이 있다. (벡터: 크기와 방향) 
+
+        _animator.SetInteger("x", (int)direction.x);
+        // animator.Play("idle");
 
         // 3. 방향과 속력에 따라 이동한다.
-        Vector2 normalizedSpeed = direction.normalized * _speed; // 벡터의 길이 1로 변환. 즉, 방향만 유지
+        Vector2 normalizedSpeed = direction * _speed; // 벡터의 길이 1로 변환. 즉, 방향만 유지
 
         // 새로운 위치 = 현재 위치 + v(방향 * 속력) x t(시간)
         Vector2 newPosition = transform.position + (Vector3)normalizedSpeed * Time.deltaTime;
