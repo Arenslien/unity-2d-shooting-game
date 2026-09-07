@@ -7,7 +7,7 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] private int _damage;
 
     // 적이 소지한 드랍아이템 테이블
-    private Item[] _dropItems = new Item[] { };
+    [SerializeField] private Item[] _dropItems = new Item[] { };
 
     private void Update()
     {
@@ -46,10 +46,5 @@ public abstract class Enemy : MonoBehaviour
 
         Item dropItem = Instantiate(_dropItems[itemIndex]);
         dropItem.transform.position = transform.position;
-    }
-
-    public void SetDropItems(Item[] items)
-    {
-        _dropItems = items;
     }
 }
