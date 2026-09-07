@@ -6,6 +6,8 @@ public class PlayerMove : MonoBehaviour
 
     // 필요 필드:
     private Animator _animator;
+    private int _horizontal;
+
 
     [SerializeField] private float _speed;
     private float _minY = -4.6f;
@@ -17,6 +19,7 @@ public class PlayerMove : MonoBehaviour
     private void Awake()
     {
         _animator = GetComponent<Animator>();
+        _horizontal = Animator.StringToHash("x");
     }
 
     // Update 메서드는 매 프레임마다 실행
@@ -38,7 +41,8 @@ public class PlayerMove : MonoBehaviour
         // 2. 키보드 입력에 따라 방향을 구한다.
         Vector2 direction = new Vector2(h, v).normalized; // 게임에는 벡터라는 타입이 있다. (벡터: 크기와 방향) 
 
-        _animator.SetInteger("x", (int)direction.x);
+        // _animator.SetInteger("x", (int)direction.x);
+        _animator.SetInteger(_horizontal, (int)direction.x);
         // animator.Play("idle");
 
         // 3. 방향과 속력에 따라 이동한다.
