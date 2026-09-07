@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: -5981092593617828559}
   - component: {fileID: 5196089732080459327}
   - component: {fileID: 6462057661387949875}
+  - component: {fileID: 3870901416178915497}
   m_Layer: 7
   m_Name: StraightEnemy
   m_TagString: Enemy
@@ -182,3 +183,19 @@ MonoBehaviour:
   _health: 100
   _moveSpeed: 2
   _damage: 20
+--- !u!114 &3870901416178915497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3817505663339383184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a83dd386622d2e4086d9f64ed1da2c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Item
+  _speed: 2
+  _delayCoolTime: 3
+  Type: 0
+  Value: 0

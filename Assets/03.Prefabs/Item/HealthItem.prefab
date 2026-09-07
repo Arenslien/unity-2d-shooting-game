@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 1098733007481615023}
   - component: {fileID: 8723749856724288549}
   - component: {fileID: -4299974243247688870}
-  - component: {fileID: 4230090998280724189}
+  - component: {fileID: -4164669634830090740}
   m_Layer: 0
   m_Name: HealthItem
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -130,7 +130,7 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1.1, y: 1.9999999}
   m_Direction: 0
---- !u!114 &4230090998280724189
+--- !u!114 &-4164669634830090740
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -139,6 +139,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6579460397196923650}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c5bce095fd99394990c44fe5129228b, type: 3}
+  m_Script: {fileID: 11500000, guid: 8a83dd386622d2e4086d9f64ed1da2c6, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HealthItem
+  m_EditorClassIdentifier: Assembly-CSharp::Item
+  _type: 0
+  _value: 10
+  _speed: 2
+  _delayCoolTime: 3
