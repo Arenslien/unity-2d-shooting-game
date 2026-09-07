@@ -19,4 +19,9 @@ public class Player : MonoBehaviour
     {
         _health += health;
     }
+
+    public int GetHealth()
+    {
+        return _health;
+    }
 }

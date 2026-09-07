@@ -90,7 +90,7 @@ public class PlayerFire : MonoBehaviour
 
         if (_fireSupportBulletCoolTime > 0.8f)
         {
-            _fireMainBulletCoolTime -= speed;
+            _fireSupportBulletCoolTime -= speed;
         }
     }
 }

@@ -15,7 +15,10 @@ public class EnemySpawner : MonoBehaviour
     private float _timer;
 
     // - 생성할 프리팹
-    [SerializeField] private Enemy[] _enemyPrefabs = new Enemy[3];
+    [SerializeField] private Enemy[] _enemyPrefabs = new Enemy[] { };
+
+    // 드랍할 아이템 프리팹
+    [SerializeField] private Item[] _itemPrefabs = new Item[] { };
 
     private int _spawnEnemyIndex = (int)Enemies.StraightEnemy;
     // 확률에 따라 Enemy 다양하게 스폰
@@ -41,6 +44,8 @@ public class EnemySpawner : MonoBehaviour
     {
         Enemy enemy = Instantiate(_enemyPrefabs[_spawnEnemyIndex]);
         enemy.transform.position = transform.position;
+
+        enemy.SetDropItems(_itemPrefabs);
     }
 
     private void SelectRandomEnemy()
