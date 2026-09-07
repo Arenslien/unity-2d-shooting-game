@@ -9,6 +9,8 @@ public abstract class Enemy : MonoBehaviour
     // 적이 소지한 드랍아이템 테이블
     [SerializeField] private Item[] _dropItems = new Item[] { };
 
+    [SerializeField] private int _dropProbability = 30;
+
     private void Update()
     {
         Move(); // 기본 이동 방식 --> 각각의 자식 클래스 메서드 적용
@@ -36,13 +38,16 @@ public abstract class Enemy : MonoBehaviour
         Destroy(gameObject);
     }
 
+    // Todo: Scriptable Object를 사용해서 리팩토링
     private void DropItem()
     {
+        if (_dropItems == null || _dropItems.Length == 0) return;
+
         int randomPercent = UnityEngine.Random.Range(0, 100);
 
-        if (randomPercent >= 30) return;
+        if (randomPercent >= _dropProbability) return;
 
-        int itemIndex = UnityEngine.Random.Range(0, 3);
+        int itemIndex = UnityEngine.Random.Range(0, _dropItems.Length);
 
         Item dropItem = Instantiate(_dropItems[itemIndex]);
         dropItem.transform.position = transform.position;
