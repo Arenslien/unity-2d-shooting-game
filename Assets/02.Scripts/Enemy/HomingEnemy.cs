@@ -19,6 +19,9 @@ public class HomingEnemy : Enemy
 
         Vector2 direction = (_playerObject.transform.position - transform.position).normalized;
 
-        transform.Translate(direction * (_moveSpeed * Time.deltaTime));
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        transform.eulerAngles = new Vector3(0, 0, angle + 90);
+
+        transform.Translate(direction * (_moveSpeed * Time.deltaTime), Space.World);
     }
 }
