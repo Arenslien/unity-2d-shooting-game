@@ -41,6 +41,8 @@ public class Item : MonoBehaviour
 
     private void FlyToPlayer()
     {
+        if (_player == null) return;
+
         // 1. 방향 설정
         Vector2 direction = (_player.transform.position - transform.position).normalized;
 

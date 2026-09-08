@@ -10,6 +10,7 @@ public abstract class Enemy : MonoBehaviour
     // 적이 소지한 드랍아이템 테이블
     [SerializeField] private Item[] _dropItems = new Item[] { };
     [SerializeField] private int _dropProbability = 30;
+    [SerializeField] private GameObject _deathEffectPrefab; // 죽을 때 생성할 이펙트 프리팹
 
     // 애니메이션 적용 필드
     private Animator _animator;
@@ -33,8 +34,16 @@ public abstract class Enemy : MonoBehaviour
         if (_health <= 0)
         {
             DropItem();
+
+            SpawnDeathEffect();
+
             Destroy(gameObject);
         }
+    }
+
+    private void SpawnDeathEffect()
+    {
+        Instantiate(_deathEffectPrefab, transform.position, Quaternion.identity);
     }
 
     private void OnTriggerEnter2D(Collider2D other)

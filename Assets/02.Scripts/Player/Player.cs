@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [SerializeField] private GameObject _deathEffectPrefab;
+
     // 캡슐화
     // - 데이터 은닉
     // - 메서드를 통한 상태 변경
@@ -17,7 +19,8 @@ public class Player : MonoBehaviour
 
         if (_health <= 0)
         {
-            Debug.Log("플레이어 체력: 0");
+            Instantiate(_deathEffectPrefab, transform.position, Quaternion.identity);
+
             Destroy(gameObject);
         }
     }
