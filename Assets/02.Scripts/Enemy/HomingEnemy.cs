@@ -12,10 +12,7 @@ public class HomingEnemy : Enemy
 
     protected override void Move()
     {
-        if (_playerObject == null)
-        {
-            return;
-        }
+        if (_playerObject == null) return;
 
         Vector2 direction = (_playerObject.transform.position - transform.position).normalized;
 
@@ -23,5 +20,6 @@ public class HomingEnemy : Enemy
         transform.eulerAngles = new Vector3(0, 0, angle + 90);
 
         transform.Translate(direction * (_moveSpeed * Time.deltaTime), Space.World);
+        // transform.position = direction * (_moveSpeed * Time.deltaTime);
     }
 }
