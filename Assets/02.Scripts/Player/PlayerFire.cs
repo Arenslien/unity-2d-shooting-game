@@ -93,4 +93,6 @@ public class PlayerFire : MonoBehaviour
             _fireSupportBulletCoolTime -= speed;
         }
     }
+
+    public float MainAttackSpeed => _fireMainBulletCoolTime;
 }

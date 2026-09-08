@@ -9,7 +9,7 @@ public class HealthItem : Item
         Player player = other.GetComponent<Player>();
         player.RestoreHealth(10);
 
-        Debug.Log($"현재 체력: {player.GetHealth()}");
+        Debug.Log($"현재 체력: {player.Health}");
         Destroy(gameObject);
     }
 }

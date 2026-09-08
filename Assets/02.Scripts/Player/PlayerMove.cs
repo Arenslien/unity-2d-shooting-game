@@ -8,12 +8,14 @@ public class PlayerMove : MonoBehaviour
     private Animator _animator;
     private int _horizontal;
 
-
     [SerializeField] private float _speed;
     private float _minY = -4.6f;
     private float _maxY = -0.58f;
     private float _limitX = 2.9f;
     private float _warpX = 1.85f;
+
+    // 프로퍼티
+    public float Speed => _speed;
 
     // 객체가 생성될 때 한 번 실행된다.
     private void Awake()

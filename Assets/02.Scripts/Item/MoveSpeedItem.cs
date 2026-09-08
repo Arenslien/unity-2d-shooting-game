@@ -9,7 +9,7 @@ public class MoveSpeedItem : Item
         PlayerMove playerMove = other.GetComponent<PlayerMove>();
         playerMove.IncreaseSpeed(1f);
 
-        Debug.Log("이동 속도 증가");
+        Debug.Log($"현재 이동 속도: {playerMove.Speed}");
         Destroy(gameObject);
     }
 }

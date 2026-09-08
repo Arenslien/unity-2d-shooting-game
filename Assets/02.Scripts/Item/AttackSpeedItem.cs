@@ -10,7 +10,7 @@ public class AttackSpeedItem : Item
         PlayerFire playerFire = other.GetComponent<PlayerFire>();
         playerFire.IncreaseAttackSpeed(0.1f);
 
-        Debug.Log("공격 속도 증가");
+        Debug.Log($"공격 속도 증가 - 현재 공속: {playerFire.MainAttackSpeed}");
         Destroy(gameObject);
     }
 }
