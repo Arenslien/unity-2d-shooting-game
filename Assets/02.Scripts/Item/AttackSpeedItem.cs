@@ -11,6 +11,9 @@ public class AttackSpeedItem : Item
         playerFire.IncreaseAttackSpeed(0.1f);
 
         Debug.Log($"공격 속도 증가 - 현재 공속: {playerFire.MainAttackSpeed}");
+
+        Instantiate(_itemAcquireEffectPrefab, transform.position, Quaternion.identity);
+
         Destroy(gameObject);
     }
 }

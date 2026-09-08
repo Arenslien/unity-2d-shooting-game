@@ -10,6 +10,9 @@ public class HealthItem : Item
         player.RestoreHealth(10);
 
         Debug.Log($"현재 체력: {player.Health}");
+
+        Instantiate(_itemAcquireEffectPrefab, transform.position, Quaternion.identity);
+
         Destroy(gameObject);
     }
 }

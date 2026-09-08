@@ -4,6 +4,7 @@ public class Item : MonoBehaviour
 {
     [SerializeField] private float _speed = 2f;
     [SerializeField] private float _delayCoolTime = 3f;
+    [SerializeField] protected GameObject _itemAcquireEffectPrefab;
 
     private float _currentTime = 0;
     private bool _isMagnetMode = false;

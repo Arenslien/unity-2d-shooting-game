@@ -108,6 +108,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AttackSpeedItem
   _speed: 2
   _delayCoolTime: 3
+  _itemAcquireEffectPrefab: {fileID: 8771972552311404799, guid: 06adec8e2e8c1fa449b269cb4c43c70a, type: 3}
 --- !u!95 &-7346269834348338859
 Animator:
   serializedVersion: 7

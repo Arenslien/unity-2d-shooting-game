@@ -10,6 +10,9 @@ public class MoveSpeedItem : Item
         playerMove.IncreaseSpeed(1f);
 
         Debug.Log($"현재 이동 속도: {playerMove.Speed}");
+
+        Instantiate(_itemAcquireEffectPrefab, transform.position, Quaternion.identity);
+
         Destroy(gameObject);
     }
 }
