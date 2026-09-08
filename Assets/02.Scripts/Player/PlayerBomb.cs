@@ -36,12 +36,4 @@ public class PlayerBomb : MonoBehaviour
 
         _bombDropPosition = new Vector3(x, y, 0);
     }
-
-    // 키보드 B 키 누르면 폭탄 투하
-
-    // 애니메이션 적용 및 3초 유지
-
-    // 범위 닿는 적 모두 한 방에 죽음
-
-    // 재사용 쿨타임 10초
 }

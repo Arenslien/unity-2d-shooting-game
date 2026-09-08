@@ -78,4 +78,10 @@ public abstract class Enemy : MonoBehaviour
         Item dropItem = Instantiate(_dropItems[itemIndex]);
         dropItem.transform.position = transform.position;
     }
+
+    public void TakeExplosion()
+    {
+        SpawnDeathEffect();
+        Destroy(gameObject);
+    }
 }
