@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public abstract class Enemy : MonoBehaviour
@@ -8,8 +9,16 @@ public abstract class Enemy : MonoBehaviour
 
     // 적이 소지한 드랍아이템 테이블
     [SerializeField] private Item[] _dropItems = new Item[] { };
-
     [SerializeField] private int _dropProbability = 30;
+
+    // 애니메이션 적용 필드
+    private Animator _animator;
+    private string _parameterName = "IsHit";
+
+    private void Awake()
+    {
+        _animator = GetComponent<Animator>();
+    }
 
     private void Update()
     {
@@ -30,12 +39,20 @@ public abstract class Enemy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!other.CompareTag("Player")) return;
-        Player player = other.gameObject.GetComponent<Player>();
+        if (other.CompareTag("Player"))
+        {
+            Player player = other.gameObject.GetComponent<Player>();
 
-        player.TakeDamage(_damage);
+            player.TakeDamage(_damage);
 
-        Destroy(gameObject);
+            Destroy(gameObject);
+        }
+        else if (other.CompareTag("Bullet"))
+        {
+            Bullet bullet = other.GetComponent<Bullet>();
+
+            _animator.SetTrigger(_parameterName);
+        }
     }
 
     // Todo: Scriptable Object를 사용해서 리팩토링

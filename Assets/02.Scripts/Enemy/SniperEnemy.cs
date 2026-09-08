@@ -9,19 +9,19 @@ public class SniperEnemy : Enemy
     {
         GameObject playerObject = GameObject.FindWithTag("Player");
 
-        if (playerObject == null)
-        {
-            return;
-        }
+        if (playerObject == null) return;
 
         _direction = (playerObject.transform.position - transform.position).normalized;
-        Debug.Log(_direction);
+
+        float angle = Mathf.Atan2(_direction.y, _direction.x) * Mathf.Rad2Deg;
+
+        transform.eulerAngles = new Vector3(0, 0, angle + 90);
     }
 
     // 목표: SniperEnemy가 생성된 시점의 Player 위치 방향으로 이동
     protected override void Move()
     {
         // 이동
-        transform.Translate(_direction * (_moveSpeed * Time.deltaTime));
+        transform.Translate(_direction * (_moveSpeed * Time.deltaTime), Space.World);
     }
 }
