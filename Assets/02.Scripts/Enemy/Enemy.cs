@@ -35,7 +35,12 @@ public abstract class Enemy : MonoBehaviour
     public void TakeDamage(int damage)
     {
         _health -= damage;
-        if (_health <= 0)
+
+        if (_health > 0)
+        {
+            _damagedAudioSource.Play();
+        }
+        else
         {
             DropItem();
 
@@ -64,7 +69,6 @@ public abstract class Enemy : MonoBehaviour
         {
             Bullet bullet = other.GetComponent<Bullet>();
             _animator.SetTrigger(_parameterName);
-            _damagedAudioSource.Play();
         }
     }
 
