@@ -14903,6 +14903,7 @@ GameObject:
   - component: {fileID: 8771972552311404798}
   - component: {fileID: 8771972552311404739}
   - component: {fileID: -2628380210509013830}
+  - component: {fileID: 2019010819820281503}
   m_Layer: 0
   m_Name: CFXR3 Hit Light B (Air) Health
   m_TagString: Untagged
@@ -20094,3 +20095,16 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2019010819820281503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8771972552311404799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a881b0f4433eb514383441a1ba3c6bd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemSound
+  _repeatCount: 2
