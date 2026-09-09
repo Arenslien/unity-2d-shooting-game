@@ -170,9 +170,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b43504c501b5158469c560d43ee1e5b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StraightEnemy
-  _health: 100
-  _moveSpeed: 2
-  _damage: 20
+  _health: 50
+  _moveSpeed: 5
+  _damage: 5
   _dropItems:
   - {fileID: -4623421044446137705, guid: be59191025c3c574c935c8ab013500d1, type: 3}
   - {fileID: 4230090998280724189, guid: 3846e28232a89fc4e8902c0ed177473e, type: 3}

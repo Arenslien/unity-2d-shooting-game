@@ -33,7 +33,7 @@ jobs:
         env:
           COMMIT_SHA: ${{ github.sha }}
         run: |
-          if git 지rev-parse "${COMMIT_SHA}^" > /dev/null 2>&1; then
+          if git rev-parse "${COMMIT_SHA}^" > /dev/null 2>&1; then
             git diff \
               --no-ext-diff \
               --unified=80 \
