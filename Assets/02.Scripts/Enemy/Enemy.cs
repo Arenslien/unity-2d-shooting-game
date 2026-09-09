@@ -16,9 +16,13 @@ public abstract class Enemy : MonoBehaviour
     private Animator _animator;
     private string _parameterName = "IsHit";
 
+    // Todo: Enemy가 공격 당할 때 재생시켜주는 피격 사운드
+    private AudioSource _damagedAudioSource;
+
     private void Awake()
     {
         _animator = GetComponent<Animator>();
+        _damagedAudioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -59,8 +63,8 @@ public abstract class Enemy : MonoBehaviour
         else if (other.CompareTag("Bullet"))
         {
             Bullet bullet = other.GetComponent<Bullet>();
-
             _animator.SetTrigger(_parameterName);
+            _damagedAudioSource.Play();
         }
     }
 
