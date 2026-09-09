@@ -10,7 +10,6 @@ public class Item : MonoBehaviour
     private bool _isMagnetMode = false;
     private GameObject _player;
 
-
     private void Start()
     {
         _player = GameObject.FindWithTag("Player");
