@@ -3,6 +3,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] private GameObject _deathEffectPrefab;
+    private AudioSource _damagedAudioSource;
 
     // 캡슐화
     // - 데이터 은닉
@@ -13,11 +14,19 @@ public class Player : MonoBehaviour
     // - 필드 (인스턴스 변수)
     // - 필드에 잘못된 값이 할당되지 않게 막고, 정상적으로 동작하는 메서드
 
+    private void Awake()
+    {
+        _damagedAudioSource = GetComponent<AudioSource>();
+    }
+
     public void TakeDamage(int damage)
     {
         _health -= damage;
-
-        if (_health <= 0)
+        if (_health > 0)
+        {
+            _damagedAudioSource.Play();
+        }
+        else
         {
             Instantiate(_deathEffectPrefab, transform.position, Quaternion.identity);
 
