@@ -14,6 +14,8 @@ public class ScoreManager : MonoBehaviour
     private int _currentScore = 0;
     private int _lastRefreshScore = -1;
 
+    private const string SaveKey = "BestScore";
+
     // UI 책임 추가
     [SerializeField] private TextMeshProUGUI _bestScoreTextUI;
     [SerializeField] private TextMeshProUGUI _currentScoreTextUI;
@@ -30,6 +32,19 @@ public class ScoreManager : MonoBehaviour
         _instance = this;
     }
 
+    private void Start()
+    {
+        // 입력: Input
+        // 저장/불러오기: PlayerPrefs
+        if (PlayerPrefs.HasKey(SaveKey))
+        {
+            _bestScore = PlayerPrefs.GetInt(SaveKey);
+        }
+        // _bestScore = PlayerPrefs.GetInt(SaveKey, 0);
+
+        Refresh();
+    }
+
 
     public void AddScore(int score)
     {
@@ -39,11 +54,14 @@ public class ScoreManager : MonoBehaviour
         if (_currentScore > _bestScore)
         {
             _bestScore = _currentScore;
-        }
-    }
 
-    private void Update()
-    {
+            // 저장: Set~ 시리즈를 이용해서 int/float/string을 저장 가능하다.
+            // 내 컴퓨터 어딘가에 저장이 된다..
+            // 자주하면 렉걸림 -> 왜 렉걸리는 지 알아야 기술면접.. 정처기를...
+            PlayerPrefs.SetInt(SaveKey, _bestScore);
+            PlayerPrefs.Save();
+        }
+
         Refresh();
     }
 
