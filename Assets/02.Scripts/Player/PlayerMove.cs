@@ -28,7 +28,6 @@ public class PlayerMove : MonoBehaviour
     // 초당 프레임 실행 횟수는: 별다른 설정이 없을 경우 가능한 많이 실행
     private void Update()
     {
-        HandleSpeed();
         Move();
     }
 
@@ -68,22 +67,6 @@ public class PlayerMove : MonoBehaviour
         }
 
         transform.position = newPosition;
-    }
-
-    private void HandleSpeed()
-    {
-        // 3. 키보드 E, Q에 스피드 업, 다운 기능 구현
-        if (Input.GetKey(KeyCode.E))
-        {
-            _speed += 1.0f * Time.deltaTime;
-            Debug.Log($"현재 속도: {_speed}");
-        }
-
-        if (Input.GetKey(KeyCode.Q))
-        {
-            _speed -= 1.0f * Time.deltaTime;
-            Debug.Log($"현재 속도: {_speed}");
-        }
     }
 
     public void IncreaseSpeed(float speed)
