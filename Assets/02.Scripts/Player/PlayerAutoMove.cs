@@ -20,6 +20,12 @@ public class PlayerAutoMove : MonoBehaviour
     private float _leftRightTurnCoolTime = 0.5f;
     private float _currentLeftRightTurnCoolTime = 0;
 
+    // 타겟
+    private GameObject _target = null;
+
+    // 거리
+    private float _minDistance = 3f;
+
     private void Update()
     {
         ChangeAutoMode();
@@ -52,31 +58,19 @@ public class PlayerAutoMove : MonoBehaviour
                 // 1. 좌우 패트롤
                 transform.position += _direction * (_speed * Time.deltaTime);
 
-                // 2. 패트롤 중 적 발견 시 Chase 모드로 전환
-                // GameObject[] targets = GameObject.FindGameObjectsWithTag("Enemy");
-                //
-                // int targetIndex = -1;
-                // foreach (GameObject target in targets)
-                // {
-                //     // 일정 거리 이상인 경우 패스
-                //
-                //     float distance = Trantarget.transform.position - transform.position;
-                // }
-                // for 
-                //
-                // if ()
-                // {
-                //     _autoModeState = AutoModeState.Chase;
-                // }
+                // 2. 적 탐색
+                FindNearestTarget();
 
                 break;
             case AutoModeState.Chase:
-                GameObject target2 = GameObject.FindWithTag("Enemy");
+                if (_target == null)
+                {
+                    _autoModeState = AutoModeState.Patrol;
+                    break;
+                }
 
-                _direction = (target2.transform.position - transform.position).normalized;
-                _direction.y = transform.position.y;
-
-                transform.position = _direction * (_speed * Time.deltaTime);
+                _direction = (_target.transform.position - transform.position).normalized;
+                transform.position += _direction * (_speed * Time.deltaTime);
 
                 break;
         }
@@ -95,6 +89,27 @@ public class PlayerAutoMove : MonoBehaviour
             _direction = (_direction.x < 0 ? Vector3.right : Vector3.left);
 
             Debug.Log(_leftRightTurnCoolTime);
+        }
+    }
+
+    private void FindNearestTarget()
+    {
+        // 1. 모든 적 Find
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+        if (enemies.Length == 0) return;
+
+        // 2. 타겟 지정
+        foreach (GameObject enemy in enemies)
+        {
+            // 2.1 타겟과의 거리 측정
+            float distance = Vector2.Distance(enemy.transform.position, transform.position);
+
+            if (distance < _minDistance)
+            {
+                _target = enemy;
+                _autoModeState = AutoModeState.Chase;
+            }
         }
     }
 }
