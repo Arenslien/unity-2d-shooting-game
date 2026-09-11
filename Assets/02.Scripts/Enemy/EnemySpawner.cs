@@ -27,10 +27,6 @@ public class EnemySpawner : MonoBehaviour
 
     private void SpawnRandomEnemy()
     {
-        // Todo: Scriptable Object를 사용해서 리팩토링
-        // - 이유 1: 배열을 사용하나 각 아이템이 어떤 프리팹인지 알 수 없음
-        // - 이유 2: 각 Enemy 스폰 확률을 매직 넘버로 하드 코딩해서 유지보수가 어려움
-
         // 가중치 랜덤 선택
         // - 각 아이템에 가중치 부여
         // - 가중치가 클수록 높은 확률로 선택되도록 하는 방식

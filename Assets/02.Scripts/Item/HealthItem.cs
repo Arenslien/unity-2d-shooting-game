@@ -2,17 +2,11 @@ using UnityEngine;
 
 public class HealthItem : Item
 {
-    private void OnTriggerEnter2D(Collider2D other)
+    protected override void ApplyItemEffect()
     {
-        if (!other.CompareTag("Player")) return;
-
-        Player player = other.GetComponent<Player>();
+        Player player = _playerObject.GetComponent<Player>();
         player.RestoreHealth(10);
 
         Debug.Log($"현재 체력: {player.Health}");
-
-        Instantiate(_itemAcquireEffectPrefab, transform.position, Quaternion.identity);
-
-        Destroy(gameObject);
     }
 }
