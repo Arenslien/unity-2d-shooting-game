@@ -1,30 +1,18 @@
 using UnityEngine;
 
-enum Enemies
-{
-    StraightEnemy,
-    SniperEnemy,
-    HomingEnemy
-}
-
 // 역할: 일정 시간마다 적을 생성해주고 싶다.
 public class EnemySpawner : MonoBehaviour
 {
     // EnemySpawnData
     [SerializeField] private EnemySpawnData[] _spawnDatas;
+    // 확률에 따라 Enemy 다양하게 스폰
+    // - 50%: Downward, 30%: Aimed, 20%: Homing
 
     // 필요 속성
     private float _spawnInterval = 3f;
     private float _minSpawnInterval = 1f;
     private float _maxSpawnInterval = 3f;
     private float _timer;
-
-    // - 생성할 프리팹
-    [SerializeField] private GameObject[] _enemyPrefabs;
-
-    private int _spawnEnemyIndex = (int)Enemies.StraightEnemy;
-    // 확률에 따라 Enemy 다양하게 스폰
-    // - 50%: Downward, 30%: Aimed, 20%: Homing
 
     private void Update()
     {
@@ -35,20 +23,11 @@ public class EnemySpawner : MonoBehaviour
             _timer = 0;
 
             _spawnInterval = UnityEngine.Random.Range(_minSpawnInterval, _maxSpawnInterval);
-            // _spawnInterval = UnityEngine.Random.Range(1, 3);
-            SelectRandomEnemy();
-
-            Spawn();
+            SpawnRandomEnemy();
         }
     }
 
-    private void Spawn()
-    {
-        GameObject enemy = Instantiate(_enemyPrefabs[_spawnEnemyIndex]);
-        enemy.transform.position = transform.position;
-    }
-
-    private void SelectRandomEnemy()
+    private void SpawnRandomEnemy()
     {
         // Todo: Scriptable Object를 사용해서 리팩토링
         // - 이유 1: 배열을 사용하나 각 아이템이 어떤 프리팹인지 알 수 없음
@@ -76,7 +55,7 @@ public class EnemySpawner : MonoBehaviour
             cumulativeWeight += data.Weight;
             if (randomWeight < cumulativeWeight)
             {
-                GameObject enemy = Instantiate(_enemyPrefabs[_spawnEnemyIndex]);
+                GameObject enemy = Instantiate(data.EnemyPrefab);
                 enemy.transform.position = transform.position;
                 break;
             }

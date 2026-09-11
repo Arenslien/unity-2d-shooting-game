@@ -46,11 +46,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
   _spawnDatas:
   - EnemyPrefab: {fileID: 3817505663339383184, guid: 3733a477ec1ddc0449a72af704c9bbb3, type: 3}
-    Weight: 0
+    Weight: 50
   - EnemyPrefab: {fileID: 3817505663339383184, guid: a55d2eddd77c60942840a18917b2127e, type: 3}
-    Weight: 0
+    Weight: 20
   - EnemyPrefab: {fileID: 3817505663339383184, guid: 9498031e8fdc5824bba34458fab7c9f5, type: 3}
-    Weight: 0
+    Weight: 30
   _enemyPrefabs:
   - {fileID: 3817505663339383184, guid: 3733a477ec1ddc0449a72af704c9bbb3, type: 3}
   - {fileID: 3817505663339383184, guid: a55d2eddd77c60942840a18917b2127e, type: 3}
