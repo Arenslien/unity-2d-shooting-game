@@ -7,92 +7,83 @@ public class PlayerFire : MonoBehaviour
     // 필요 속성
     // - 총알 프리팹
     // - 생성 위치 (총구)
+    public Transform LeftFirePoint;
+    public Transform RightFirePoint;
+    public Transform SubLeftFirePoint;
+    public Transform SubRightFirePoint;
 
-    public GameObject BulletPrefab;
-    public GameObject SupportBulletPrefab;
+    private float _mainCoolTimer = 1f;
+    private float _mainCoolTime = 1f;
+    private float _subCoolTimer = 1.5f;
+    private float _subCoolTime = 1.5f;
 
-    public Transform FirePointL;
-    public Transform FirePointR;
-    public Transform SupportFirePointL;
-    public Transform SupportFirePointR;
-
-    private float _fireMainBulletCoolTime = 1f;
-    private float _currentBulletCoolTime = 0.0f;
-    private bool _isBulletFire = false;
-
-    private float _fireSupportBulletCoolTime = 1.5f;
-    private float _currentSupportBulletCoolTime = 0.0f;
-    private bool _isSupportBulletFire = false;
     private bool _isAutoMode = false;
+
+    // Bullet Pool
+    private BulletPool _bulletPool = null;
+
+    private void Start()
+    {
+        _bulletPool = BulletPool.Instance;
+    }
 
     private void Update()
     {
-        FireBullet(BulletPrefab, new Transform[2] { FirePointL, FirePointR }, ref _isBulletFire);
-        FireBullet(SupportBulletPrefab, new Transform[2] { SupportFirePointL, SupportFirePointR },
-            ref _isSupportBulletFire);
-
-        CheckCoolTime(ref _isBulletFire, ref _currentBulletCoolTime, _fireMainBulletCoolTime);
-        CheckCoolTime(ref _isSupportBulletFire, ref _currentSupportBulletCoolTime, _fireSupportBulletCoolTime);
-
-        ChangeAutoMode();
-    }
-
-    private void FireBullet(GameObject bulletPrefab, Transform[] firePoints, ref bool isFire)
-    {
-        // 1. 총알 발사 조건: 미발사 상태인 동시에 Auto모드이거나 Space 키 입력
-        if (!isFire && (_isAutoMode || Input.GetKeyDown(KeyCode.Space)))
-        {
-            // 2. 총알 프리팹 배열 생성
-            int bulletCount = firePoints.Length;
-            GameObject[] bullets = new GameObject[bulletCount];
-
-            // 모든 총알 위치를 포인트 위치로 설정
-            for (int i = 0; i < bulletCount; i++)
-            {
-                bullets[i] = Instantiate(bulletPrefab);
-                bullets[i].transform.position = firePoints[i].position;
-            }
-
-            // 쿨타임 시작
-            isFire = true;
-        }
-    }
-
-    private void CheckCoolTime(ref bool isFire, ref float currentCoolTime, float bulletCoolTime)
-    {
-        if (isFire)
-        {
-            currentCoolTime += Time.deltaTime;
-        }
-
-        if (currentCoolTime >= bulletCoolTime)
-        {
-            isFire = false;
-            currentCoolTime = 0.0f;
-        }
-    }
-
-    private void ChangeAutoMode()
-    {
+        // 자동 공격 모드 토글
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            _isAutoMode = !_isAutoMode;
-            Debug.Log($"자동 공격 모드 {(_isAutoMode ? "ON" : "OFF")}");
+            ToggleAutoMode();
         }
+
+        // Main/Sub Bullet 발사 쿨타임 체크
+        _mainCoolTimer += Time.deltaTime;
+        _subCoolTimer += Time.deltaTime;
+
+        // 총알 쿨타임 만족 && 오토 모드 or 스페이스바 입력
+        if (_mainCoolTimer >= _mainCoolTime && (_isAutoMode || Input.GetKeyDown(KeyCode.Space)))
+        {
+            Fire(BulletType.Main, LeftFirePoint, RightFirePoint);
+
+            _mainCoolTimer = 0f;
+        }
+
+        if (_subCoolTimer >= _subCoolTime && (_isAutoMode || Input.GetKeyDown(KeyCode.Space)))
+        {
+            Fire(BulletType.Sub, SubLeftFirePoint, SubRightFirePoint);
+
+            _subCoolTimer = 0f;
+        }
+    }
+
+    private void Fire(BulletType bulletType, Transform leftPoint, Transform rightPoint)
+    {
+        Bullet leftBullet = BulletPool.Instance.GetBullet(bulletType);
+
+        leftBullet.transform.position = leftPoint.position;
+
+        Bullet rightBullet = BulletPool.Instance.GetBullet(bulletType);
+
+        rightBullet.transform.position = rightPoint.position;
+    }
+
+    private void ToggleAutoMode()
+    {
+        _isAutoMode = !_isAutoMode;
+        Debug.Log($"자동 공격 모드 {(_isAutoMode ? "ON" : "OFF")}");
     }
 
     public void IncreaseAttackSpeed(float speed)
     {
-        if (_fireMainBulletCoolTime > 0.5f)
+        if (_mainCoolTimer > 0.5f)
         {
-            _fireMainBulletCoolTime -= speed;
+            _mainCoolTimer -= speed;
         }
 
-        if (_fireSupportBulletCoolTime > 0.8f)
+        if (_subCoolTimer > 0.8f)
         {
-            _fireSupportBulletCoolTime -= speed;
+            _subCoolTimer -= speed;
         }
     }
 
-    public float MainAttackSpeed => _fireMainBulletCoolTime;
+    public float MainAttackSpeed => _mainCoolTimer;
 }

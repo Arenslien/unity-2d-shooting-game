@@ -10,8 +10,6 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] private int _damage;
 
     // 적이 소지한 드랍아이템 테이블
-    [SerializeField] private Item[] _dropItems = new Item[] { };
-    [SerializeField] private int _dropProbability = 30;
     [SerializeField] private GameObject _deathEffectPrefab; // 죽을 때 생성할 이펙트 프리팹
 
     // 애니메이션 적용 필드
@@ -75,7 +73,6 @@ public abstract class Enemy : MonoBehaviour
         }
     }
 
-    // Todo: Scriptable Object를 사용해서 리팩토링
     private void DropItem()
     {
         if (_itemDataTable == null || _itemDataTable.Items.Length == 0) return;

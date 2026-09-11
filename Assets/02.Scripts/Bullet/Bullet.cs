@@ -2,8 +2,37 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public float MoveSpeed;
-    public int BulletDamage;
+    // SerializeField 값
+    [SerializeField] private BulletType _type;
+    public BulletType Type => _type;
+
+    // UnSerializeField 값
+    public float MoveSpeed = 5f;
+    public int BulletDamage = 10;
+
+    // Component 변수
+    private AudioSource _audioSource;
+
+    // 1. Awake() 때 AudioSource 컴포넌트 할당
+    private void Awake()
+    {
+        _audioSource = GetComponent<AudioSource>();
+    }
+
+    public void OnSpawn()
+    {
+        // 프리팹이 풀에 의해서 활성화 될 때마다
+        // 초기화 하는 코드들이 들어간다.
+
+        PlaySound();
+    }
+
+
+    private void PlaySound()
+    {
+        _audioSource.pitch = UnityEngine.Random.Range(1f, 3f);
+        _audioSource.Play();
+    }
 
     private void Update()
     {
@@ -19,18 +48,16 @@ public class Bullet : MonoBehaviour
     // 트리거 관련 이벤트
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!other.CompareTag("Enemy")) return;
-        // 1. 충돌한 경우 바로 총알 게임 오브젝트 제거
-
-        // 2. 충돌한 객체가 Enemy인 경우 : Enemy와 상호작용 진행
+        // 1. 충돌한 객체가 Enemy인 경우 : Enemy와 상호작용 진행
         if (other.gameObject.CompareTag("Enemy")) // 게임오브젝트의 태그 비교
         {
-            // 2.1 충돌한 객체 참조
+            // 1.1 총알 소멸
+            gameObject.SetActive(false);
+
+            // 1.1 충돌한 객체 참조
             Enemy enemy = other.gameObject.GetComponent<Enemy>(); // GetComponent<타입>() --> 해당 겜옵젝의 컴포넌트 참조
 
             enemy.TakeDamage(BulletDamage);
         }
-
-        Destroy(gameObject);
     }
 }
