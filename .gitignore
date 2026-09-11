@@ -6,6 +6,11 @@
 # 라이더 설정값 추가
 .idea
 
+.vscode
+.vscode/
+
+*.slnx
+
 .utmp/
 /[Ll]ibrary/
 /[Tt]emp/
