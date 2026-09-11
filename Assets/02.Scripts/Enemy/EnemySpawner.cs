@@ -3,10 +3,8 @@ using UnityEngine;
 // 역할: 일정 시간마다 적을 생성해주고 싶다.
 public class EnemySpawner : MonoBehaviour
 {
-    // EnemySpawnData
-    [SerializeField] private EnemySpawnData[] _spawnDatas;
-    // 확률에 따라 Enemy 다양하게 스폰
-    // - 50%: Downward, 30%: Aimed, 20%: Homing
+    // ScriptableObject 기반 데이터 테이블 관리
+    [SerializeField] private EnemySpawnDataTableSO _spawnDataTable;
 
     // 필요 속성
     private float _spawnInterval = 3f;
@@ -39,7 +37,7 @@ public class EnemySpawner : MonoBehaviour
 
         // 1. 추첨할 수 있는 모든 가중치를 더한다.
         int totalWeight = 0;
-        foreach (EnemySpawnData data in _spawnDatas)
+        foreach (EnemySpawnData data in _spawnDataTable.Datas)
         {
             totalWeight += data.Weight;
         }
@@ -50,7 +48,7 @@ public class EnemySpawner : MonoBehaviour
         // 3. 가중치를 누적하면서 선택된 구간을 찾는다.
         int cumulativeWeight = 0;
 
-        foreach (EnemySpawnData data in _spawnDatas)
+        foreach (EnemySpawnData data in _spawnDataTable.Datas)
         {
             cumulativeWeight += data.Weight;
             if (randomWeight < cumulativeWeight)
