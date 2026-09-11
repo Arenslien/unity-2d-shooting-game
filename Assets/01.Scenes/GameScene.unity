@@ -363,12 +363,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02d2a48505c70b94680f0b2f9b742a81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerFire
-  BulletPrefab: {fileID: 72867155946678924, guid: c2f7ff266d51418468ae2f7327c9b011, type: 3}
-  SupportBulletPrefab: {fileID: 5488245894273886872, guid: 562d9f192de684f41baaac6fe4cc1ff5, type: 3}
-  FirePointL: {fileID: 1839105410}
-  FirePointR: {fileID: 1622322829}
-  SupportFirePointL: {fileID: 1908182724}
-  SupportFirePointR: {fileID: 1231870277}
+  LeftFirePoint: {fileID: 1839105410}
+  RightFirePoint: {fileID: 1622322829}
+  SubLeftFirePoint: {fileID: 1908182724}
+  SubRightFirePoint: {fileID: 1231870277}
 --- !u!114 &114392593
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1701,6 +1699,54 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &955758529
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 955758531}
+  - component: {fileID: 955758530}
+  m_Layer: 0
+  m_Name: BulletPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &955758530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 955758529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9786045f2a751c74999e1614447fd663, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BulletPool
+  _bulletPrefabs:
+  - {fileID: -1892309855094963721, guid: c2f7ff266d51418468ae2f7327c9b011, type: 3}
+  - {fileID: -6095259800605073004, guid: 562d9f192de684f41baaac6fe4cc1ff5, type: 3}
+  _poolSize: 50
+--- !u!4 &955758531
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 955758529}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.05021, y: -0.37432, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &988099978
 GameObject:
   m_ObjectHideFlags: 0
@@ -2097,7 +2143,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1231870277}
   m_Layer: 6
-  m_Name: SupportFirePointR
+  m_Name: SubFirePointR
   m_TagString: Untagged
   m_Icon: {fileID: 4162164826716764455, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -2520,7 +2566,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1908182724}
   m_Layer: 6
-  m_Name: SupportFirePointL
+  m_Name: SubFirePointL
   m_TagString: Untagged
   m_Icon: {fileID: 4162164826716764455, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -3209,3 +3255,4 @@ SceneRoots:
   - {fileID: 1940536840}
   - {fileID: 988099981}
   - {fileID: 293295493}
+  - {fileID: 955758531}
