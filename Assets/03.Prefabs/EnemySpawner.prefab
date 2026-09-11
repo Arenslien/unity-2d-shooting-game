@@ -44,12 +44,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb9c20011234436409e7f52a552a15d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
-  _spawnInterval: 3
+  _spawnDatas:
+  - EnemyPrefab: {fileID: 3817505663339383184, guid: 3733a477ec1ddc0449a72af704c9bbb3, type: 3}
+    Weight: 0
+  - EnemyPrefab: {fileID: 3817505663339383184, guid: a55d2eddd77c60942840a18917b2127e, type: 3}
+    Weight: 0
+  - EnemyPrefab: {fileID: 3817505663339383184, guid: 9498031e8fdc5824bba34458fab7c9f5, type: 3}
+    Weight: 0
   _enemyPrefabs:
-  - {fileID: 6462057661387949875, guid: 3733a477ec1ddc0449a72af704c9bbb3, type: 3}
-  - {fileID: -7986038049139368308, guid: a55d2eddd77c60942840a18917b2127e, type: 3}
-  - {fileID: 8827217719703286777, guid: 9498031e8fdc5824bba34458fab7c9f5, type: 3}
-  _itemPrefabs:
-  - {fileID: 4230090998280724189, guid: 3846e28232a89fc4e8902c0ed177473e, type: 3}
-  - {fileID: -4623421044446137705, guid: be59191025c3c574c935c8ab013500d1, type: 3}
-  - {fileID: -4176297782441276824, guid: 91aa44339ae8f3c4db975bb577f98dbc, type: 3}
+  - {fileID: 3817505663339383184, guid: 3733a477ec1ddc0449a72af704c9bbb3, type: 3}
+  - {fileID: 3817505663339383184, guid: a55d2eddd77c60942840a18917b2127e, type: 3}
+  - {fileID: 3817505663339383184, guid: 9498031e8fdc5824bba34458fab7c9f5, type: 3}

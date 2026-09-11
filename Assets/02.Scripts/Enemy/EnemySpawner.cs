@@ -10,6 +10,9 @@ enum Enemies
 // 역할: 일정 시간마다 적을 생성해주고 싶다.
 public class EnemySpawner : MonoBehaviour
 {
+    // EnemySpawnData
+    [SerializeField] private EnemySpawnData[] _spawnDatas;
+
     // 필요 속성
     private float _spawnInterval = 3f;
     private float _minSpawnInterval = 1f;
@@ -17,7 +20,7 @@ public class EnemySpawner : MonoBehaviour
     private float _timer;
 
     // - 생성할 프리팹
-    [SerializeField] private Enemy[] _enemyPrefabs = new Enemy[] { };
+    [SerializeField] private GameObject[] _enemyPrefabs;
 
     private int _spawnEnemyIndex = (int)Enemies.StraightEnemy;
     // 확률에 따라 Enemy 다양하게 스폰
@@ -41,28 +44,42 @@ public class EnemySpawner : MonoBehaviour
 
     private void Spawn()
     {
-        Enemy enemy = Instantiate(_enemyPrefabs[_spawnEnemyIndex]);
+        GameObject enemy = Instantiate(_enemyPrefabs[_spawnEnemyIndex]);
         enemy.transform.position = transform.position;
     }
 
     private void SelectRandomEnemy()
     {
-        int randomNumber = UnityEngine.Random.Range(0, 100);
-
         // Todo: Scriptable Object를 사용해서 리팩토링
         // - 이유 1: 배열을 사용하나 각 아이템이 어떤 프리팹인지 알 수 없음
         // - 이유 2: 각 Enemy 스폰 확률을 매직 넘버로 하드 코딩해서 유지보수가 어려움
-        if (randomNumber < 50)
+
+        // 가중치 랜덤 선택
+        // - 각 아이템에 가중치 부여
+        // - 가중치가 클수록 높은 확률로 선택되도록 하는 방식
+
+        // 1. 추첨할 수 있는 모든 가중치를 더한다.
+        int totalWeight = 0;
+        foreach (EnemySpawnData data in _spawnDatas)
         {
-            _spawnEnemyIndex = (int)Enemies.StraightEnemy;
+            totalWeight += data.Weight;
         }
-        else if (randomNumber < 80)
+
+        // 2. 전체 가중치 범위에서 랜덤한 정수 뽑기
+        int randomWeight = Random.Range(0, totalWeight);
+
+        // 3. 가중치를 누적하면서 선택된 구간을 찾는다.
+        int cumulativeWeight = 0;
+
+        foreach (EnemySpawnData data in _spawnDatas)
         {
-            _spawnEnemyIndex = (int)Enemies.SniperEnemy;
-        }
-        else
-        {
-            _spawnEnemyIndex = (int)Enemies.HomingEnemy;
+            cumulativeWeight += data.Weight;
+            if (randomWeight < cumulativeWeight)
+            {
+                GameObject enemy = Instantiate(_enemyPrefabs[_spawnEnemyIndex]);
+                enemy.transform.position = transform.position;
+                break;
+            }
         }
     }
 }
