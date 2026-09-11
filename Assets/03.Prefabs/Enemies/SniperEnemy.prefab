@@ -188,6 +188,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 219b12f2652f00a4a8240be26b17515c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TargetingEnemy
+  _itemDataTable: {fileID: 11400000, guid: ee5755ec3e5211747b1bd572715de31c, type: 2}
   _health: 80
   _moveSpeed: 2.5
   _damage: 10

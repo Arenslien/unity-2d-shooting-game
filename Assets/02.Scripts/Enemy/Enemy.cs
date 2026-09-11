@@ -3,6 +3,8 @@ using UnityEngine;
 
 public abstract class Enemy : MonoBehaviour
 {
+    [SerializeField] private ItemSpawnDataTableSO _itemDataTable;
+
     [SerializeField] private int _health = 100;
     [SerializeField] protected float _moveSpeed = 1;
     [SerializeField] private int _damage;
@@ -76,16 +78,30 @@ public abstract class Enemy : MonoBehaviour
     // Todo: Scriptable Object를 사용해서 리팩토링
     private void DropItem()
     {
-        if (_dropItems == null || _dropItems.Length == 0) return;
+        if (_itemDataTable == null || _itemDataTable.Items.Length == 0) return;
 
-        int randomPercent = UnityEngine.Random.Range(0, 100);
+        int dropProbability = UnityEngine.Random.Range(0, 100);
+        if (dropProbability >= 30) return;
 
-        if (randomPercent >= _dropProbability) return;
+        int totalWeight = 0;
+        foreach (ItemSpawnData data in _itemDataTable.Items)
+        {
+            totalWeight += data.Weight;
+        }
 
-        int itemIndex = UnityEngine.Random.Range(0, _dropItems.Length);
+        int randomWeight = UnityEngine.Random.Range(0, totalWeight);
 
-        Item dropItem = Instantiate(_dropItems[itemIndex]);
-        dropItem.transform.position = transform.position;
+        int cumulativeWeight = 0;
+        foreach (ItemSpawnData data in _itemDataTable.Items)
+        {
+            cumulativeWeight += data.Weight;
+            if (cumulativeWeight > randomWeight)
+            {
+                GameObject dropItem = Instantiate(data.ItemPrefab);
+                dropItem.transform.position = transform.position;
+                break;
+            }
+        }
     }
 
     public void TakeExplosion()
