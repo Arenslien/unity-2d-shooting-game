@@ -69,8 +69,8 @@ public class ScoreManager : MonoBehaviour
     {
         if (_lastRefreshScore == _currentScore) return;
 
-        _bestScoreTextUI.text = $"BestScore: {_bestScore}";
-        _currentScoreTextUI.text = $"Score: {_currentScore}";
+        _bestScoreTextUI.text = $"BestScore: {_bestScore:N0}";
+        _currentScoreTextUI.text = $"Score: {_currentScore:N0}";
 
         _lastRefreshScore = _currentScore;
     }
