@@ -8,14 +8,11 @@ public class PlayerMove : MonoBehaviour
     private Animator _animator;
     private int _horizontal;
 
-    [SerializeField] private float _speed;
     private float _minY = -4.6f;
     private float _maxY = -0.58f;
     private float _limitX = 2.9f;
     private float _warpX = 1.85f;
 
-    // 프로퍼티
-    public float Speed => _speed;
 
     // 객체가 생성될 때 한 번 실행된다.
     private void Awake()
@@ -47,7 +44,7 @@ public class PlayerMove : MonoBehaviour
         // animator.Play("idle");
 
         // 3. 방향과 속력에 따라 이동한다.
-        Vector2 normalizedSpeed = direction * _speed; // 벡터의 길이 1로 변환. 즉, 방향만 유지
+        Vector2 normalizedSpeed = direction * Player.MoveSpeed; // 벡터의 길이 1로 변환. 즉, 방향만 유지
 
         // 새로운 위치 = 현재 위치 + v(방향 * 속력) x t(시간)
         Vector2 newPosition = transform.position + (Vector3)normalizedSpeed * Time.deltaTime;
@@ -69,8 +66,13 @@ public class PlayerMove : MonoBehaviour
         transform.position = newPosition;
     }
 
-    public void IncreaseSpeed(float speed)
+    public Vector3 ClampPosition(Vector3 position)
     {
-        _speed += speed;
+        Vector3 newPosition = new Vector3();
+
+        newPosition.x = Mathf.Clamp(position.x, -_limitX, _limitX);
+        newPosition.y = Mathf.Clamp(position.y, _minY, _maxY);
+
+        return newPosition;
     }
 }
