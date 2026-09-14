@@ -2,23 +2,55 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    // Component 변수 (캐싱)
     [SerializeField] private GameObject _deathEffectPrefab;
     private AudioSource _damagedAudioSource;
 
-    // 캡슐화
-    // - 데이터 은닉
-    // - 메서드를 통한 상태 변경
-    private int _health = 100;
+    // Player 기본 스탯 변수
+    private static int _health = 100;
+    private static int _mainBulletDamage = 10;
+    private static int _subBulletDamage = 5;
+    private static float _attackSpeed = 0.5f;
+    private static float _moveSpeed = 3.0f;
 
-    // 잘 설계된 클래스는
-    // - 필드 (인스턴스 변수)
-    // - 필드에 잘못된 값이 할당되지 않게 막고, 정상적으로 동작하는 메서드
+    // property
+    public static int Health => _health; // 람다식 문법을 활용한 읽기 전용(read only) 프로퍼티
+    public static float MoveSpeed => _moveSpeed;
 
+    // static 메서드
+    public static void RestoreHealth(int health)
+    {
+        if (health < 0) return;
+        _health += health;
+    }
+
+    public static void MoveSpeedUp(float speed)
+    {
+        if (speed < 0) return;
+        _moveSpeed += speed;
+    }
+
+    public static void AttackSpeedUp(float speed)
+    {
+        if (speed < 0) return;
+        _attackSpeed += speed;
+    }
+
+    public static void AttackPowerUp(int value)
+    {
+        if (value < 0) return;
+        _mainBulletDamage += value;
+        _subBulletDamage += (int)(value / 2);
+    }
+
+
+    // Awake: Component 캐싱
     private void Awake()
     {
         _damagedAudioSource = GetComponent<AudioSource>();
     }
 
+    // public 메서드
     public void TakeDamage(int damage)
     {
         _health -= damage;
@@ -33,37 +65,4 @@ public class Player : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
-    public void RestoreHealth(int health)
-    {
-        if (health < 0)
-        {
-            Debug.Log("힐량은 음수일 수 없습니다.");
-            return;
-        }
-
-        _health += health;
-    }
-
-    // public int GetHealth()
-    // {
-    //     return _health;
-    // }
-
-    // Property
-    // public int Health
-    // {
-    //     set
-    //     {
-    //         if (value < 0) return;
-    //         _health = value;
-    //     }
-    //     
-    //     get
-    //     {
-    //         return _health;
-    //     }
-    // }
-
-    public int Health => _health; // 람다식 문법을 활용한 읽기 전용(read only) 프로퍼티
 }

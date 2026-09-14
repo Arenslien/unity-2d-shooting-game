@@ -52,11 +52,13 @@ public class PlayerAutoMove : MonoBehaviour
 
     private void AutoMove()
     {
+        float finalSpeed = _speed + UpgradeManager.Instance.Upgrades[1].CurrentValue;
+
         switch (_autoModeState)
         {
             case AutoModeState.Patrol:
                 // 1. 좌우 패트롤
-                transform.position += _direction * (_speed * Time.deltaTime);
+                transform.position += _direction * (finalSpeed * Time.deltaTime);
 
                 // 2. 적 탐색
                 FindNearestTarget();
@@ -70,7 +72,7 @@ public class PlayerAutoMove : MonoBehaviour
                 }
 
                 _direction = (_target.transform.position - transform.position).normalized;
-                transform.position += _direction * (_speed * Time.deltaTime);
+                transform.position += _direction * (finalSpeed * Time.deltaTime);
 
                 break;
         }

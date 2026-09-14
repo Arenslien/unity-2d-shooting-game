@@ -6,9 +6,8 @@ public class Bullet : MonoBehaviour
     [SerializeField] private BulletType _type;
     public BulletType Type => _type;
 
-    // UnSerializeField 값
-    public float MoveSpeed = 5f;
-    public int BulletDamage = 10;
+    [SerializeField] private float _moveSpeed = 5f;
+    [SerializeField] private int _bulletDamage = 10;
 
     // Component 변수
     private AudioSource _audioSource;
@@ -19,21 +18,6 @@ public class Bullet : MonoBehaviour
         _audioSource = GetComponent<AudioSource>();
     }
 
-    public void OnSpawn()
-    {
-        // 프리팹이 풀에 의해서 활성화 될 때마다
-        // 초기화 하는 코드들이 들어간다.
-
-        PlaySound();
-    }
-
-
-    private void PlaySound()
-    {
-        _audioSource.pitch = UnityEngine.Random.Range(1f, 3f);
-        _audioSource.Play();
-    }
-
     private void Update()
     {
         Move();
@@ -42,7 +26,7 @@ public class Bullet : MonoBehaviour
     private void Move()
     {
         Vector2 direction = Vector2.up; // new Vector2(0, 1)과 동일!                // 1. 방향 설정
-        transform.Translate(direction * (MoveSpeed * Time.deltaTime)); // 2. 발사 (이동)
+        transform.Translate(direction * (_moveSpeed * Time.deltaTime)); // 2. 발사 (이동)
     }
 
     // 트리거 관련 이벤트
@@ -57,7 +41,23 @@ public class Bullet : MonoBehaviour
             // 1.1 충돌한 객체 참조
             Enemy enemy = other.gameObject.GetComponent<Enemy>(); // GetComponent<타입>() --> 해당 겜옵젝의 컴포넌트 참조
 
-            enemy.TakeDamage(BulletDamage);
+            int finalDamage = _bulletDamage + (int)UpgradeManager.Instance.Upgrades[0].CurrentValue;
+
+            enemy.TakeDamage(finalDamage);
         }
+    }
+
+    public void OnSpawn()
+    {
+        // 프리팹이 풀에 의해서 활성화 될 때마다
+        // 초기화 하는 코드들이 들어간다.
+
+        PlaySound();
+    }
+
+    private void PlaySound()
+    {
+        _audioSource.pitch = UnityEngine.Random.Range(1f, 3f);
+        _audioSource.Play();
     }
 }
