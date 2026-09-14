@@ -66,7 +66,7 @@ public class PlayerFire : MonoBehaviour
         rightBullet.transform.position = rightPoint.position;
     }
 
-    private void ToggleAutoMode()
+    public void ToggleAutoMode()
     {
         _isAutoMode = !_isAutoMode;
         Debug.Log($"자동 공격 모드 {(_isAutoMode ? "ON" : "OFF")}");

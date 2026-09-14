@@ -28,7 +28,10 @@ public class PlayerAutoMove : MonoBehaviour
 
     private void Update()
     {
-        ChangeAutoMode();
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            ToggleAutoMode();
+        }
 
         if (_isAutoMode)
         {
@@ -40,14 +43,11 @@ public class PlayerAutoMove : MonoBehaviour
         }
     }
 
-    private void ChangeAutoMode()
+    public void ToggleAutoMode()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            _isAutoMode = !_isAutoMode;
-            _autoModeState = _isAutoMode ? AutoModeState.Patrol : AutoModeState.Idle;
-            Debug.Log($"[Player Auto Move] - {(_isAutoMode ? "ON" : "OFF")}");
-        }
+        _isAutoMode = !_isAutoMode;
+        _autoModeState = _isAutoMode ? AutoModeState.Patrol : AutoModeState.Idle;
+        Debug.Log($"[Player Auto Move] - {(_isAutoMode ? "ON" : "OFF")}");
     }
 
     private void AutoMove()
