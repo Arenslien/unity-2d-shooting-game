@@ -12,7 +12,7 @@ public class PlayerBomb : MonoBehaviour
 
     private void Update()
     {
-        if (_currentTime >= _coolTime && Input.GetKeyDown(KeyCode.B))
+        if (_currentTime >= _coolTime && SimpleInput.GetButton("Bomb"))
         {
             CalculateBombDropPosition();
             Bomb();
