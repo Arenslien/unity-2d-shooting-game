@@ -5,6 +5,7 @@ public class EnemySpawner : MonoBehaviour
 {
     // ScriptableObject 기반 데이터 테이블 관리
     [SerializeField] private EnemySpawnDataTableSO _spawnDataTable;
+    [SerializeField] private EnemyBalanceDataTableSO _balanceDataTable;
 
     // 필요 속성
     private float _spawnInterval = 3f;
@@ -51,8 +52,26 @@ public class EnemySpawner : MonoBehaviour
             {
                 GameObject enemy = Instantiate(data.EnemyPrefab);
                 enemy.transform.position = transform.position;
+                enemy.GetComponent<Enemy>().SetHealthBalance(GetHealthMultiplier());
                 break;
             }
         }
+    }
+
+    private float GetHealthMultiplier()
+    {
+        // Todo: 기획자에게 물어보기
+        int bestScore = ScoreManager.Instance.BestScore;
+
+        // 150,000 vs 10000
+        foreach (EnemyBalanceData data in _balanceDataTable.Datas)
+        {
+            if (bestScore < data.RequiredScore)
+            {
+                return data.HealthMultiplier;
+            }
+        }
+
+        return _balanceDataTable.Datas[_balanceDataTable.Datas.Length - 1].HealthMultiplier;
     }
 }

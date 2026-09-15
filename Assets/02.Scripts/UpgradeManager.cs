@@ -7,10 +7,11 @@ public class UpgradeManager : MonoBehaviour
     private static UpgradeManager _instance = null;
     public static UpgradeManager Instance => _instance;
 
+    [SerializeField] private UI_Upgrade[] _uiUpgrades;
     [SerializeField] private Upgrade[] _upgrades;
     public Upgrade[] Upgrades => _upgrades;
 
-    [SerializeField] private UI_Upgrade[] _uiUpgrades;
+    private const string SaveDataKey = "UpgradeSaveData";
 
     private void Awake()
     {
@@ -76,15 +77,15 @@ public class UpgradeManager : MonoBehaviour
 
         string json = JsonUtility.ToJson(saveData);
 
-        PlayerPrefs.SetString("UpgradeSaveData", json);
+        PlayerPrefs.SetString(SaveDataKey, json);
         PlayerPrefs.Save();
     }
 
     private void Load()
     {
-        if (!PlayerPrefs.HasKey("UpgradeSaveData")) return;
+        if (!PlayerPrefs.HasKey(SaveDataKey)) return;
 
-        string json = PlayerPrefs.GetString("UpgradeSaveData", string.Empty);
+        string json = PlayerPrefs.GetString(SaveDataKey, string.Empty);
 
         UpgradeSaveData saveData = JsonUtility.FromJson<UpgradeSaveData>(json);
 

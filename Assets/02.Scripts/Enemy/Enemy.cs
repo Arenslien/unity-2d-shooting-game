@@ -4,7 +4,7 @@ using UnityEngine;
 public abstract class Enemy : MonoBehaviour
 {
     [SerializeField] private ItemSpawnDataTableSO _itemDataTable;
-
+    [SerializeField] private int _baseHealth;
     [SerializeField] private int _health = 100;
     [SerializeField] protected float _moveSpeed = 1;
     [SerializeField] private int _damage;
@@ -105,5 +105,11 @@ public abstract class Enemy : MonoBehaviour
     {
         SpawnDeathEffect();
         Destroy(gameObject);
+    }
+
+    public void SetHealthBalance(float multiplier)
+    {
+        // 체력 초기화
+        _health = (int)(_baseHealth * multiplier);
     }
 }

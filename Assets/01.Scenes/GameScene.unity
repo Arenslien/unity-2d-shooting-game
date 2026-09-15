@@ -1315,6 +1315,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edc2e961384c1b84189eafbe0942f757, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeManager
+  _uiUpgrades:
+  - {fileID: 938725748}
+  - {fileID: 479947479}
+  - {fileID: 478844777}
   _upgrades:
   - _name: Attack Power
     _defaultValue: 1
@@ -1331,10 +1335,6 @@ MonoBehaviour:
     _increaseValue: 0.1
     _defaultCost: 1000
     _increaseCost: 1.2
-  _uiUpgrades:
-  - {fileID: 938725748}
-  - {fileID: 479947479}
-  - {fileID: 478844777}
 --- !u!4 &532381558
 Transform:
   m_ObjectHideFlags: 0

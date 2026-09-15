@@ -18,6 +18,9 @@ public class ScoreManager : MonoBehaviour
 
     private const string SaveKey = "BestScore";
 
+    // 프로퍼티
+    public int BestScore => _bestScore;
+
     // UI 책임 추가
     [SerializeField] private TextMeshProUGUI _bestScoreTextUI;
     [SerializeField] private TextMeshProUGUI _currentScoreTextUI;
