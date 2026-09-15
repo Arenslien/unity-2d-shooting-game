@@ -32,8 +32,8 @@ public class PlayerMove : MonoBehaviour
     {
         // [기본적인 이동 메커니즘]
         // 1. 키보드 입력을 받는다.
-        float h = Input.GetAxisRaw("Horizontal"); // 키보드 좌우 입력 상태에 따라 -1f, 0, 1f(Raw 빼면 연속으로)
-        float v = Input.GetAxisRaw("Vertical"); // 키보드 상하 입력 상태에 따라 -1f, 0, 1f
+        float h = SimpleInput.GetAxisRaw("Horizontal"); // 키보드 좌우 입력 상태에 따라 -1f, 0, 1f(Raw 빼면 연속으로)
+        float v = SimpleInput.GetAxisRaw("Vertical"); // 키보드 상하 입력 상태에 따라 -1f, 0, 1f
         // Debug.Log($"h: {h}, v: {v}");
 
         // 2. 키보드 입력에 따라 방향을 구한다.
