@@ -1,0 +1,41 @@
+{
+    "asset": "515e8e2224865bc4c9407d407f000dfd",
+    "fileName": "01a0a7ed-026d-7114-b804-6fc4209ebbf2.png",
+    "prompt": "Cute retro arcade pixel-art 2D game UI button icon for a Bomb / Special Attack skill button. Rounded square button with crisp pixel borders matching the AUTO button style. Deep dark red and crimson background with bright fiery orange and golden yellow accents. Features a cute classic round black cartoon bomb with a burning sparkling fuse in the center. Crisp pixel edges, authentic 16-bit pixel art aesthetic, no anti-aliasing, no smooth 3D shading, transparent or solid clean background, game UI ready, high contrast and high readability.",
+    "negativePrompt": "",
+    "model": "gemini-3.1-flash",
+    "modelName": "Gemini 3.1 Nano Banana 2",
+    "customSeed": -1,
+    "w3CTraceId": "",
+    "feedback": 0,
+    "refinementMode": "Generation",
+    "pixelateTargetSize": 0,
+    "pixelateKeepImageSize": false,
+    "pixelatePixelBlockSize": 0,
+    "pixelatePixelGridSize": 0,
+    "pixelateMode": 0,
+    "pixelateOutlineThickness": 0,
+    "doodles": {
+        "m_Items": [
+            {
+                "doodleReferenceType": 7,
+                "doodle": [],
+                "label": "Image",
+                "strength": 0.25,
+                "invertStrength": false,
+                "assetReferenceGuid": "2ae2ae85b4acd3d4e9b111599c2dddb8",
+                "unlabeledIndex": -1
+            }
+        ]
+    },
+    "upscaleFactor": 0,
+    "dimensions": {
+        "width": 1024,
+        "height": 1024
+    },
+    "spriteSheet": false,
+    "duration": 0.0,
+    "dynamicParams": {
+        "serializedData": []
+    }
+}
